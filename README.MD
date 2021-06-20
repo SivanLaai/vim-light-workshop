@@ -68,3 +68,5 @@ vim
 ### 搜索功能
 ### 代码补全
 ### 代码错误修正
+# 预览
+![Image text](img/preview.jpg)
