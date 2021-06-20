@@ -1,6 +1,4 @@
-# 配置bash
-## 配置vim
-将vim打造成一个轻量的IDE
+## 配置vim 将vim打造成一个轻量的IDE
 ## 编译python
 ## 编译vim
 cp -rf vimrc ~/.vimrc
