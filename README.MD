@@ -6,10 +6,12 @@
 cp -rf vimrc ~/.vimrc
 ##编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
+```bash
 wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 tar -xvf node-v14.17.1-linux-x64.tar.xz
 echo "installing nodejs"
 sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs 
+```
 #添加nodejs环境变量
 ```bash
 bash_file="~/.bash_profile"
@@ -60,14 +62,8 @@ vim
 ```
 # 添加功能：
 ### 文件管理：插件NerdTree
-#
 ### 跳转功能
-#
 ### 任意跳转功能，主要是和前一个功能进行补充
-#
 ### 搜索功能
-#
 ### 代码补全
-#
 ### 代码错误修正
-#
