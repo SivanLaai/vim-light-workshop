@@ -1,10 +1,11 @@
-#配置bash
-#配置vim
+# 配置bash
+## 配置vim
 将vim打造成一个轻量的IDE
-##编译python
-##编译vim
+## 编译python
+## 编译vim
 cp -rf vimrc ~/.vimrc
-##编译nodejs,插件coc需要nodejs的功能
+cp -rf bashrc ~/.bashrc
+# 编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
 ```bash
 wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
