@@ -43,6 +43,7 @@ $ make install # may require extra privileges depending on where to install
     libxml2-dev
 ```
 ## 安装vim-plug
+```bash
 # 安装vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -56,6 +57,7 @@ vim
 ####配置coc
 :CocInstall coc-json coc-tsserver
 :CocInstall coc-pyright coc-clangd coc-snippets
+```
 #添加功能：
 ###文件管理：插件NerdTree
 #
