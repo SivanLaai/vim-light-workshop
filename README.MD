@@ -3,8 +3,45 @@
 ![Image text](img/Solarized.jpg)
 ## 配置vim 将vim打造成一个轻量的IDE
 ## linux安装
-#### 编译python3.8.5
+#### 编译python3.8.8
+```
+#Ubuntu
+sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
+wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
+tar -xvf Python-3.8.8.tar.xz
+cd Python-3.8.8.tar.xz
+./configure --enable-optimizations --prefix=/usr/local/python3.8
+make altinstall -j8
+sudo make install
+# add bin path
+echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
+```
 #### 编译vim 支持Python和clipboard
+```
+git clone https://github.com/vim/vim
+cd vim
+git pull && git fetch
+./configure \
+--enable-multibyte \
+--enable-perlinterp=dynamic \
+--enable-rubyinterp=dynamic \
+--with-ruby-command=/usr/local/bin/ruby \
+--enable-pythoninterp=dynamic \
+--enable-python3interp \
+--with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu \
+--enable-luainterp \
+--with-luajit \
+--enable-cscope \
+--enable-gui=auto \
+--with-features=huge \
+--with-x \
+--enable-fontset \
+--enable-largefile \
+--disable-netbeans\
+--with-compiledby="SivanLaai" \
+--enable-fail-if-missing
+make && sudo make install
+```
 ```bash
 cp -rf vimrc ~/.vimrc
 cp -rf bashrc ~/.bashrc
