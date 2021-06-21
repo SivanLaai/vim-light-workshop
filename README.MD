@@ -1,6 +1,10 @@
+## Xshell 护眼主题 Eyes Protection
+#### Solarized Dark
+![Image text](img/Solarized.jpg)
 ## 配置vim 将vim打造成一个轻量的IDE
-## 编译python
-## 编译vim
+## linux安装
+#### 编译python3.8.5
+#### 编译vim 支持Python和clipboard
 ```bash
 cp -rf vimrc ~/.vimrc
 cp -rf bashrc ~/.bashrc
@@ -61,7 +65,7 @@ vim
 :CocInstall coc-json coc-tsserver
 :CocInstall coc-pyright coc-clangd coc-snippets
 ```
-# 添加功能：
+## 添加功能：
 ### 文件管理：插件NerdTree
 ### 跳转功能
 ### 任意跳转功能，主要是和前一个功能进行补充
@@ -70,3 +74,21 @@ vim
 ### 代码错误修正
 # 预览
 ![Image text](img/preview.jpg)
+## gvim
+#### 安装
+```
+下载python编译版本gvim：https://github.com/vim/vim-win32-installer/releases
+安装相关的python
+下载安装字体 DejaVu Sans Mono for Powerline
+https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf
+```
+#### 复制配置文件
+```
+cp -rf gvim/_vimrc $vim/_vimrc
+cp -rf gvim/autoload vimfile
+cp -rf gvim/colors vimfile #Solarized Dark 主题复制
+```
+#### 配置gvim
+```
+:PlugInstall #待安装完成
+```
