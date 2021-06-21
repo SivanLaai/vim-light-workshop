@@ -1,55 +1,38 @@
 " Vim with all enhancements
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
 set guifont=agave\ NF:h11
-colors desert  "设置配色方案，系统预置配色方案的名称在后边的图片中
 source $VIMRUNTIME/vimrc_example.vim
-
-" Use the internal diff if available.
-" Otherwise use the special 'diffexpr' for Windows.
-if &diffopt !~# 'internal'
-  set diffexpr=MyDiff()
-endif
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg1 = substitute(arg1, '!', '\!', 'g')
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg2 = substitute(arg2, '!', '\!', 'g')
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let arg3 = substitute(arg3, '!', '\!', 'g')
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  let cmd = substitute(cmd, '!', '\!', 'g')
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-set number
-syntax on
+syntax enable
+set background=dark
+colorscheme solarized
+"禁止生成中间文件
+set nobackup
+set noswapfile
+" 使回格键（backspace）正常处理indent, eol, start等  
+set backspace=2
+" 允许backspace和光标键跨越行边界  
+set whichwrap+=<,>,h,l
+" 设置文件的历史记录
+set history=1000
+" 与windows共享剪切板
+set clipboard+=unnamed
+set vb t_vb= " 不让vim发出讨厌的滴滴声
+" 光标移动到buffer的顶部和底部时保持3行距离,窗口滚动最小距离
+set scrolloff=3
+set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936 "设置vim自动识别编码
+set number "行号
+set nocompatible " 使用vim自己的编辑模式
+syntax on " 语法高亮
+set showmode
+set showcmd
+set mouse=a
+set t_Co=256
 filetype indent on
 set autoindent
 set tabstop=4
 set shiftwidth=4
-set expandtab
-set softtabstop=2
+set noexpandtab
+set softtabstop=4
 set wrap
 set linebreak
 set wrapmargin=2
@@ -66,6 +49,41 @@ set listchars=tab:»·,trail:·
 set list
 set wildmenu
 set wildmode=longest:list,full
+
+" use ctrl+h/j/k/l switch window
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+" leader ??
+let g:mapleader=","
+" ????ģʽ??ʹ?? leader+w ???ٱ????ļ?
+imap ,w <esc>:w<CR>
+" ʹ?? jj ???ٻص? normal ģʽ
+imap jj <Esc>
+inoremap <C-l> <C-o>A
+" ʹ?? leader+e ?????˳����?(???ǲ????ر? buffer)
+noremap <leader>e :q<cr>
+" ʹ?? leader+b ???ٹرյ?ǰ buffer
+noremap <leader>b :bd<cr>
+noremap <silent><tab>m :tabnew<cr>
+noremap <silent><tab>e :tabclose<cr>
+noremap <silent><tab>n :tabn<cr>
+noremap <silent><tab>p :tabp<cr>
+noremap <silent><leader>t :tabnew<cr>
+noremap <silent><leader>g :tabclose<cr>
+noremap <silent><leader>1 :tabn 1<cr>
+noremap <silent><leader>2 :tabn 2<cr>
+noremap <silent><leader>3 :tabn 3<cr>
+noremap <silent><leader>4 :tabn 4<cr>
+noremap <silent><leader>5 :tabn 5<cr>
+noremap <silent><leader>6 :tabn 6<cr>
+noremap <silent><leader>7 :tabn 7<cr>
+noremap <silent><leader>8 :tabn 8<cr>
+noremap <silent><leader>9 :tabn 9<cr>
+noremap <silent><leader>0 :tabn 10<cr>
+noremap <silent><tab>[ :tabfirst<cr>
+noremap <silent><tab>] :tablast<cr>
 "use ctrl+h/j/k/l switch window
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -140,3 +158,43 @@ Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'honza/vim-snippets'
 call plug#end()
+
+
+" Use the internal diff if available.
+" Otherwise use the special 'diffexpr' for Windows.
+if &diffopt !~# 'internal'
+  set diffexpr=MyDiff()
+endif
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg1 = substitute(arg1, '!', '\!', 'g')
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg2 = substitute(arg2, '!', '\!', 'g')
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let arg3 = substitute(arg3, '!', '\!', 'g')
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  let cmd = substitute(cmd, '!', '\!', 'g')
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+
