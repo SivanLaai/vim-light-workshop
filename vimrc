@@ -1,10 +1,23 @@
-set background=dark
-set visualbell
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-set noerrorbells
-set number
-set nocompatible
-syntax on
+syntax enable
+"set background=dark
+"禁止生成中间文件
+set nobackup
+set noswapfile
+" 使回格键（backspace）正常处理indent, eol, start等  
+set backspace=2
+" 允许backspace和光标键跨越行边界  
+set whichwrap+=<,>,h,l
+" 设置文件的历史记录
+set history=1000
+" 与windows共享剪切板
+set clipboard=unnamedplus
+set vb t_vb= " 不让vim发出讨厌的滴滴声
+" 光标移动到buffer的顶部和底部时保持3行距离,窗口滚动最小距离
+set scrolloff=3
+set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936 "设置vim自动识别编码
+set number "行号
+set nocompatible " 使用vim自己的编辑模式
+syntax on " 语法高亮
 set showmode
 set showcmd
 set mouse=a
@@ -13,8 +26,8 @@ filetype indent on
 set autoindent
 set tabstop=4
 set shiftwidth=4
-set expandtab
-set softtabstop=2
+set noexpandtab
+set softtabstop=4
 set wrap
 set linebreak
 set wrapmargin=2
@@ -41,7 +54,7 @@ let g:mapleader=","
 " 插入模式下使用 leader+w 快速保存文件
 imap ,w <esc>:w<CR>
 " 使用 jj 快速回到 normal 模式
-imap jj <Esc>
+imap jj <Esc>l
 inoremap <C-l> <C-o>A
 " 使用 leader+e 快速退出窗口(但是不会关闭 buffer)
 noremap <leader>e :q<cr>
@@ -82,6 +95,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 "when creating a new tab, copy a mirror of nerdtree.
 autocmd BufWinEnter * silent NERDTreeMirror
 nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
+nnoremap <C-b> :NERDTreeClose<CR>
 "leaderf
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
@@ -126,7 +140,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'ryanoasis/vim-devicons'
 Plug 'jistr/vim-nerdtree-tabs'
-
+"Plug 'altercation/vim-colors-solarized'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
