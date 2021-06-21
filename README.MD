@@ -1,6 +1,6 @@
 ## Xshell 护眼主题 Eyes Protection
 #### Solarized Dark
-![Image text](img/Solarized.jpg)
+![Image text](img/Solarized.png)
 ## 配置vim 将vim打造成一个轻量的IDE
 ## linux安装
 #### 编译python3.8.8
