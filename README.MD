@@ -1,5 +1,7 @@
 ## Xshell 护眼主题 Eyes Protection
 #### Solarized Dark
+##### 安装方式
+在Xshell 配色方案里导入 本项目中的Solarized.xcs
 ![Image text](img/Solarized.png)
 ## 配置vim 将vim打造成一个轻量的IDE
 ## linux安装
