@@ -93,8 +93,7 @@ make && sudo make install
 ```bash
 cp -rf vimrc ~/.vimrc
 ```
-# 编译nodejs,插件coc需要nodejs的功能
-# 安装nodejs, 插件coc.vim会用到这个软件
+#### 安装nodejs, 插件coc.vim会用到这个软件
 ```bash
 wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 tar -xvf node-v14.17.1-linux-x64.tar.xz
