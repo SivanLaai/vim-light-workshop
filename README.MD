@@ -12,7 +12,15 @@
 - 单终端编译和写代码，不用Crtl-z切后台编译，直接借助tmux和vimux插件实现在一个界面写代码和编译
 - 更加强大的终端zsh和on-my-zsh管理 
 
-## linux安装
+## linux安装方式
+### 1.脚本安装
+```bash
+git clone https://github.com/SivanLaai/vimrc.git
+cd vimrc
+./install.sh
+#TODO: 安装完成记得进入vim更新插件
+```
+### 2.常规安装
 #### tmux安装
 ```bash
 sudo apt install libevent ncurses
