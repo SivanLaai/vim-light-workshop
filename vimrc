@@ -79,6 +79,9 @@ noremap <silent><leader>0 :tabn 10<cr>
 noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
 
+" set paste
+noremap <Leader>c :set paste<CR>
+noremap <Leader>nc :set nopaste<CR>
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
@@ -114,6 +117,7 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
 " vimux
 " Run the current file with rspec
 " Run the current file with rspec
@@ -139,8 +143,9 @@ map <Leader>vz :call VimuxZoomRunner()<CR>
 
 " Clear the terminal screen of the runner pane.
 map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+
+" ctags
 set tags=./.tags;,.tags
-"
 "" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 "
