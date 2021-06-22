@@ -1,12 +1,58 @@
 ## Xshell 护眼主题 Eyes Protection
 #### Solarized Dark
 ##### 安装方式
-在Xshell 配色方案里导入 本项目中的Solarized.xcs
+在Xshell 配色方案里导入 本项目中的xcs文件
 ![Image text](img/Solarized.png)
 ## 配置vim 将vim打造成一个轻量的IDE
 ## linux安装
-#### 编译python3.8.8
+#### tmux安装
+```bash
+sudo apt install libevent ncurses
+sudo apt install tmux
+# 配置tmux支持快捷键与vim无缝切换
+if [ ! -e "~/.tmux.conf" ]; then
+    touch ~/.tmux.conf
+fi 
+cat>~/.tmux.conf<<-"eof"
+# VIM模式
+bind-key k select-pane -U # up
+bind-key j select-pane -D # down
+bind-key h select-pane -L # left
+bind-key l select-pane -R # right
+#开启鼠标
+set -g mouse on
+eof
 ```
+#### zsh安装
+```bash
+sudo apt install zsh
+#安装oh-my-zsh
+option 1
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# option 2
+git clone git@github.com:ohmyzsh/ohmyzsh.git
+cd ohmyzsh/tools
+vim install.sh
+#修改为ssh git
+./install.sh
+#install theme
+ZSH_THEME="agnoster" # (this is one of the fancy ones)'~/.zshrc
+#激活环境bash变量
+echo 'source ~/.bash_profile'>>~/.zshrc
+```
+#### 安装autojump
+```zsh
+git clone git://github.com/joelthelion/autojump.git
+cd autojump
+./install.py
+cat>~/.zshrc<<-"eof"
+[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+eof
+
+```
+#### 编译python3.8.8
+```bash
 #Ubuntu
 sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
 wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
@@ -19,7 +65,7 @@ sudo make install
 echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
 ```
 #### 编译vim 支持Python和clipboard
-```
+```bash
 git clone https://github.com/vim/vim
 cd vim
 git pull && git fetch

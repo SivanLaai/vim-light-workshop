@@ -5,9 +5,14 @@ source $VIMRUNTIME/vimrc_example.vim
 syntax enable
 set background=dark
 colorscheme solarized
-"禁止生成中间文件
-set nobackup
-set noswapfile
+"生成中间文件
+set backup
+set swapfile
+set undofile
+" 生成中间文件，保存到其它目录不污染本目录
+set undodir=~$HOME/vimfiles/undodir
+set directory^=$HOME/vimfiles/swapdir
+set backupdir^=$HOME/vimfiles/backdir
 " 使回格键（backspace）正常处理indent, eol, start等  
 set backspace=2
 " 允许backspace和光标键跨越行边界  
@@ -60,7 +65,7 @@ let g:mapleader=","
 " ????ģʽ??ʹ?? leader+w ???ٱ????ļ?
 imap ,w <esc>:w<CR>
 " ʹ?? jj ???ٻص? normal ģʽ
-imap jj <Esc>l
+imap <C-c> <Esc>l
 inoremap <C-l> <C-o>A
 " ʹ?? leader+e ?????˳����?(???ǲ????ر? buffer)
 noremap <leader>e :q<cr>
@@ -84,41 +89,6 @@ noremap <silent><leader>9 :tabn 9<cr>
 noremap <silent><leader>0 :tabn 10<cr>
 noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
-"use ctrl+h/j/k/l switch window
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-" leader 键
-let g:mapleader=","
-" 插入模式下使用 leader+w 快速保存文件
-imap ,w <esc>:w<CR>
-" 使用 jj 快速回到 normal 模式
-imap jj <Esc>
-inoremap <C-l> <C-o>A
-" 使用 leader+e 快速退出窗口(但是不会关闭 buffer)
-noremap <leader>e :q<cr>
-" 使用 leader+b 快速关闭当前 buffer
-noremap <leader>b :bd<cr>
-noremap <silent><tab>m :tabnew<cr>
-noremap <silent><tab>e :tabclose<cr>
-noremap <silent><tab>n :tabn<cr>
-noremap <silent><tab>p :tabp<cr>
-noremap <silent><leader>t :tabnew<cr>
-noremap <silent><leader>g :tabclose<cr>
-noremap <silent><leader>1 :tabn 1<cr>
-noremap <silent><leader>2 :tabn 2<cr>
-noremap <silent><leader>3 :tabn 3<cr>
-noremap <silent><leader>4 :tabn 4<cr>
-noremap <silent><leader>5 :tabn 5<cr>
-noremap <silent><leader>6 :tabn 6<cr>
-noremap <silent><leader>7 :tabn 7<cr>
-noremap <silent><leader>8 :tabn 8<cr>
-noremap <silent><leader>9 :tabn 9<cr>
-noremap <silent><leader>0 :tabn 10<cr>
-noremap <silent><tab>[ :tabfirst<cr>
-noremap <silent><tab>] :tablast<cr>
-
 
 "nerdtree
 "when nerdtree is the last window, then close the vim.
@@ -149,9 +119,105 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+"markdown
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+" recognized filetypes
+" these filetypes will have MarkdownPreview... commands
+let g:mkdp_filetypes = ['markdown']
+
+nmap <C-p> <Plug>MarkdownPreview
+nmap <C-s> <Plug>MarkdownPreviewStop
+
 
 "vim-plug
 call plug#begin('~/.vim/plugged')
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'

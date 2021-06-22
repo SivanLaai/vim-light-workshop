@@ -1,8 +1,13 @@
 syntax enable
 "set background=dark
-"禁止生成中间文件
-set nobackup
-set noswapfile
+"生成中间文件
+set backup
+set swapfile
+set undofile
+" 生成中间文件，保存到其它目录不污染本目录
+set undodir=~$HOME/.vim/undodir
+set directory^=$HOME/.vim/swapdir
+set backupdir^=$HOME/.vim/backdir
 " 使回格键（backspace）正常处理indent, eol, start等  
 set backspace=2
 " 允许backspace和光标键跨越行边界  
