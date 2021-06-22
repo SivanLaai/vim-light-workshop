@@ -1,13 +1,8 @@
 syntax enable
 "set background=dark
-"生成中间文件
-set backup
-set swapfile
-set undofile
-" 生成中间文件，保存到其它目录不污染本目录
-set undodir=~$HOME/.vim/undodir
-set directory^=$HOME/.vim/swapdir
-set backupdir^=$HOME/.vim/backdir
+"禁止生成中间文件
+set nobackup
+set noswapfile
 " 使回格键（backspace）正常处理indent, eol, start等  
 set backspace=2
 " 允许backspace和光标键跨越行边界  
@@ -119,7 +114,31 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+" vimux
+" Run the current file with rspec
+" Run the current file with rspec
+map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
 
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+map <Leader>vi :VimuxInspectRunner<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>vq :VimuxCloseRunner<CR>
+
+" Interrupt any command running in the runner pane
+map <Leader>vx :VimuxInterruptRunner<CR>
+
+" Zoom the runner pane (use <bind-key> z to restore runner pane)
+map <Leader>vz :call VimuxZoomRunner()<CR>
+
+" Clear the terminal screen of the runner pane.
+map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
 set tags=./.tags;,.tags
 "
 "" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -145,12 +164,12 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'ryanoasis/vim-devicons'
 Plug 'jistr/vim-nerdtree-tabs'
-"Plug 'altercation/vim-colors-solarized'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
+Plug 'preservim/vimux'
 call plug#end()
 
