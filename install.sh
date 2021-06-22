@@ -128,19 +128,12 @@ sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
 echo 'source ~/.bash_profile'>>~/.zshrc
 cd ~
 rm -rf ohmyzsh
-
+cat<<"eof"
+Final Step:
 ## 打开vim
 vim
-#:PlugInstall #等待插件安装完成
+:PlugInstall #等待插件安装完成
 ####配置coc
-#:CocInstall coc-json coc-tsserver
-#:CocInstall coc-pyright coc-clangd coc-snippets
-
-## 添加功能：
-### 文件管理：插件NerdTree
-### 跳转功能
-### 任意跳转功能，主要是和前一个功能进行补充
-### 搜索功能
-### 代码补全
-### 代码错误修正
-# 预览
+:CocInstall coc-json coc-tsserver
+:CocInstall coc-pyright coc-clangd coc-snippets
+eof
