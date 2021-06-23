@@ -37,6 +37,8 @@ bind-key h select-pane -L # left
 bind-key l select-pane -R # right
 #开启鼠标
 set -g mouse on
+#在tmux使用vim模式
+setw -g mode-keys vi
 eof
 ```
 #### zsh安装
