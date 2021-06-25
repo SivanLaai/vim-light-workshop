@@ -1,5 +1,7 @@
 syntax enable
 "set background=light "dark
+set background=dark
+colorscheme solarized
 "禁止生成中间文件
 set nobackup
 set noswapfile
@@ -17,7 +19,6 @@ set scrolloff=3
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936 "设置vim自动识别编码
 set number "行号
 set nocompatible " 使用vim自己的编辑模式
-syntax on " 语法高亮
 set showmode
 set showcmd
 set mouse=a
@@ -179,7 +180,8 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
