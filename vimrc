@@ -1,5 +1,5 @@
 syntax enable
-"set background=dark
+"set background=light "dark
 "禁止生成中间文件
 set nobackup
 set noswapfile
@@ -120,7 +120,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-autocmd VimEnter * hi Pmenu guibg=#1b1b1b ctermbg=Black
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -179,8 +178,8 @@ endif
 "vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug ''
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
@@ -188,4 +187,3 @@ Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'preservim/vimux'
 call plug#end()
-
