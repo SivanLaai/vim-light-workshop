@@ -1,6 +1,6 @@
 " Vim with all enhancements
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-set guifont=agave\ NF:h11
+set guifont=agave\ NF:h12
 source $VIMRUNTIME/vimrc_example.vim
 syntax enable
 set background=dark
@@ -20,7 +20,7 @@ set whichwrap+=<,>,h,l
 " 设置文件的历史记录
 set history=1000
 " 与windows共享剪切板
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 set vb t_vb= " 不让vim发出讨厌的滴滴声
 " 光标移动到buffer的顶部和底部时保持3行距离,窗口滚动最小距离
 set scrolloff=3
@@ -119,6 +119,7 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
 "markdown
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
@@ -220,6 +221,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'honza/vim-snippets'
