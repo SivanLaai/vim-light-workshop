@@ -1,5 +1,4 @@
 syntax enable
-"set background=light "dark
 set background=dark
 colorscheme solarized
 "禁止生成中间文件
@@ -173,8 +172,8 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets'}
+Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
