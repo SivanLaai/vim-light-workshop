@@ -91,7 +91,10 @@ export LD_FLAGS="-rdynamic"
 make && sudo make install
 ```
 ```bash
+# 复制配置文件
 cp -rf vimrc ~/.vimrc
+# 安装主题
+cp -rf gvim/colors ~/.vim/colors
 ```
 #### 安装nodejs, 插件coc.vim会用到这个软件
 ```bash
@@ -159,13 +162,14 @@ vim
 https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf
 ```
 #### 复制配置文件
-```
+```zsh
 cp -rf gvim/_vimrc $vim/_vimrc
 cp -rf gvim/autoload vimfile
-cp -rf gvim/colors vimfile #Solarized Dark 主题复制
+# Solarized Dark 主题复制
+cp -rf gvim/colors vimfile 
 ```
 #### 配置gvim
-```
+```zsh
 :PlugInstall #待安装完成
 ```
 ## Xshell 护眼主题 Eyes Protection
