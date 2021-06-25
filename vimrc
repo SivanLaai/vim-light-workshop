@@ -35,6 +35,7 @@ set scrolloff=5
 set laststatus=2
 set ruler
 set showmatch
+set foldmethod=marker
 set hlsearch
 set incsearch
 set ignorecase
@@ -49,6 +50,13 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+" auto skip to the middle of characters below.
+inoremap () ()<Left>
+inoremap [] []<Left>
+inoremap {} {}<Left>
+inoremap <> <><Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
 " leader 键
 let g:mapleader=","
 " 插入模式下使用 leader+w 快速保存文件
@@ -80,8 +88,8 @@ noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
 
 " set paste
-noremap <Leader>c :set paste<CR>
-noremap <Leader>nc :set nopaste<CR>
+noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>
+noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:w<CR>:tabclose<CR>
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
@@ -112,6 +120,7 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+autocmd VimEnter * hi Pmenu guibg=#1b1b1b ctermbg=Black
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -158,18 +167,20 @@ let g:gutentags_cache_dir = s:vim_tags
 
 "" 配置 ctags 的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--pythton-kinds=+zl']
 "let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 "let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "
+
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 "vim-plug
 call plug#begin('~/.vim/plugged')
-Plug 'ryanoasis/vim-devicons'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug ''
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
