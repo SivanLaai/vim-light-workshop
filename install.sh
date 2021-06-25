@@ -113,6 +113,7 @@ if [ ! -d "~/.vim/autoload" ]; then
 	mkdir ~/.vim/autoload
 fi
 cp -rf vimrc ~/.vimrc
+cp -rf gvim/colors ~/.vim/colors
 cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
 rm -rf vim-plug
 
