@@ -20,6 +20,8 @@ bind-key h select-pane -L # left
 bind-key l select-pane -R # right
 #开启鼠标
 set -g mouse on
+#设置vim模式
+setw -g mode-keys vi
 eof
 #### 安装autojump
 git clone git://github.com/joelthelion/autojump.git

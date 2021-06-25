@@ -1,17 +1,15 @@
-# 配置vim 将vim打造成一个轻量的IDE
-
-## 预览
-![Image text](img/preview.gif)
-#### 添加功能：
+# Vim-Tmux 一键安装轻量级工作站
+## 添加功能：
 - 文件管理：插件NerdTree
 - 跳转功能：Ctags
 - 任意跳转功能，主要是和前一个功能进行补充；JumpAny
 - 搜索功能：LeaderF
 - 代码补全：Coc.nvim
 - 代码错误修正：Coc.nvim
-- 单终端编译和写代码，不用Crtl-z切后台编译，直接借助tmux和vimux插件实现在一个界面写代码和编译
-- 更加强大的终端zsh和on-my-zsh管理 
-
+- **单终端编译和写代码，不用Crtl-z切后台编译**，直接借助tmux和vimux插件实现在一个界面写代码和编译
+- 更加强大的终端zsh和on-my-zsh管理，支持主题和插件 
+## 效果预览
+![Image text](img/preview.gif)
 ## linux安装方式
 ### 1.脚本安装
 ```bash
@@ -37,6 +35,8 @@ bind-key h select-pane -L # left
 bind-key l select-pane -R # right
 #开启鼠标
 set -g mouse on
+#在tmux使用vim模式
+setw -g mode-keys vi
 eof
 ```
 #### zsh安装
