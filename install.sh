@@ -136,7 +136,4 @@ Final Step:
 ## 打开vim
 vim
 :PlugInstall #等待插件安装完成
-####配置coc
-:CocInstall coc-json coc-tsserver
-:CocInstall coc-pyright coc-clangd coc-snippets
 eof
