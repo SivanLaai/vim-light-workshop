@@ -93,8 +93,6 @@ make && sudo make install
 ```bash
 # 复制配置文件
 cp -rf vimrc ~/.vimrc
-# 安装主题
-cp -rf gvim/colors ~/.vim/colors
 ```
 #### 安装nodejs, 插件coc.vim会用到这个软件
 ```bash
@@ -148,9 +146,6 @@ cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
 ## 打开vim
 vim
 :PlugInstall #等待插件安装完成
-####配置coc
-:CocInstall coc-json coc-tsserver
-:CocInstall coc-pyright coc-clangd coc-snippets
 ```
 
 ## gvim
