@@ -11,7 +11,7 @@ set whichwrap+=<,>,h,l
 " 设置文件的历史记录
 set history=1000
 " 与windows共享剪切板
-set clipboard+=unnamedplus
+set clipboard+=unnamed
 set vb t_vb= " 不让vim发出讨厌的滴滴声
 " 光标移动到buffer的顶部和底部时保持3行距离,窗口滚动最小距离
 set scrolloff=3
