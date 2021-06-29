@@ -30,6 +30,7 @@ set noexpandtab
 set softtabstop=4
 set wrap
 set linebreak
+set textwidth=150
 set wrapmargin=2
 set scrolloff=5
 set laststatus=2
@@ -89,7 +90,8 @@ noremap <silent><tab>] :tablast<cr>
 
 " set paste
 noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>
-noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:w<CR>:tabclose<CR>
+noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
+
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
@@ -106,7 +108,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 "when creating a new tab, copy a mirror of nerdtree.
 autocmd BufWinEnter * silent NERDTreeMirror
 nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
-nnoremap <C-b> :NERDTreeClose<CR>
+nnoremap <C-x> :NERDTreeClose<CR>
 "leaderf
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
@@ -180,4 +182,5 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'preservim/vimux'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
