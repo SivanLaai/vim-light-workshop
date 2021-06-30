@@ -47,7 +47,11 @@ if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; th
 fi
 
 #### 编译vim 支持Python和clipboard
-git clone https://github.com/vim/vim
+
+if [ ! -e "~/vim" ]; then
+	echo "Downloading Python Install Package."
+	git clone https://github.com/vim/vim
+fi
 cd vim
 git pull && git fetch
 export LD_FLAGS="-rdynamic"
@@ -55,7 +59,6 @@ export LD_FLAGS="-rdynamic"
 --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscope --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
 make && sudo make install
 cd ~
-sudo rm -rf vim
 
 # 编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
@@ -116,31 +119,45 @@ cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
 sudo rm -rf vim-plug
 
 #### zsh安装
-sudo apt install zsh
+if ! [ -x "$(command -v zsh)" ]; then
+	echo 'zsh is not installed.' >&2
+	echo 'installing zsh now.' >&2
+	sudo apt install zsh
+else
+	echo 'zsh is installed'
+fi
 #安装oh-my-zsh
-git clone git@github.com:ohmyzsh/ohmyzsh.git
-cd ohmyzsh/tools
-vim install.sh
-#修改为ssh git
-./install.sh
-#install theme
-sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
-#激活环境bash变量
-echo 'source ~/.bash_profile'>>~/.zshrc
-cd ~/vim-light-workshop
-sudo rm -rf ohmyzsh
+if ! [ ! -d "~/.oh-my-zsh" ]; then
+	echo 'installing oh-my-zsh now.' >&2
+	git clone git@github.com:ohmyzsh/ohmyzsh.git
+	cd ohmyzsh/tools
+	./install.sh
+	#install theme
+	sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
+	#激活环境bash变量
+	echo 'source ~/.bash_profile'>>~/.zshrc
+	cd ~/vim-light-workshop
+	sudo rm -rf ohmyzsh
+else
+	echo 'oh-my-zsh is installed'
+fi
 
 #### 安装autojump
-git clone git://github.com/joelthelion/autojump.git
-cd autojump
-./install.py
-cat>>~/.zshrc<<-"eof"
-[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
-eof
+if ! [ ! -d "~/.autojump" ]; then
+	echo 'installing autojump now.' >&2
+	git clone git://github.com/joelthelion/autojump.git
+	cd autojump
+	./install.py
+	cat>>~/.zshrc<<-"eof"
+	[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
+	autoload -U compinit && compinit -u
+	eof
+	cd ~
+	sudo rm -rf autojump
+else
+	echo 'autojump is installed'
+fi
 
-cd ~
-sudo rm -rf autojump
 cat<<"eof"
 Final Step:
 ## 打开vim
