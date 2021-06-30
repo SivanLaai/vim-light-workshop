@@ -37,18 +37,21 @@ rm -rf autojump
 
 #### 编译python3.8.8
 #Ubuntu
-sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
-wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
+
+if [ ! -e "Python-3.8.8.tar.xz" ]; then
+	echo "Downloading Python Install Package."
+	sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
+	wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
+fi
 tar -xvf Python-3.8.8.tar.xz
-cd Python-3.8.8.tar.xz
+cd Python-3.8.8
 ./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
 sudo make altinstall -j8
 # add bin path
 echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
-echo 'export
-PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
+echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
 cd ~
-rm -rf Python-3.8.8.tar.xz
+rm -rf Python-3.8.8
 
 #### 编译vim 支持Python和clipboard
 git clone https://github.com/vim/vim
@@ -61,11 +64,12 @@ make && sudo make install
 cd ~
 rm -rf vim
 
-cp -rf vimrc ~/.vimrc
-
 # 编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
-wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
+if [ ! -e "node-v14.17.1-linux-x64.tar.xz" ]; then
+	echo "Downloading node-v14.17.1 Install Package."
+	wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
+fi
 tar -xvf node-v14.17.1-linux-x64.tar.xz
 echo "installing nodejs"
 sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs 
