@@ -105,7 +105,7 @@ sudo rm -rf ctags
 # 安装vim-plug
 #curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-git clone git@github.com:junegunn/vim-plug.git
+git clone https://github.com/junegunn/vim-plug.git
 # 如果安装失败的话，可能就需要修改plug.vim
 # find ~ -name 'plug.vim' | xargs perl -pi -e 's|https://git::@github.com/%s.git|git@github.com:%s.git|g'
 if [ ! -d "~/.vim/autoload" ]; then
@@ -129,7 +129,7 @@ fi
 #安装oh-my-zsh
 if ! [ ! -d "~/.oh-my-zsh" ]; then
 	echo 'installing oh-my-zsh now.' >&2
-	git clone git@github.com:ohmyzsh/ohmyzsh.git
+	git clone https://github.com/ohmyzsh/ohmyzsh.git
 	cd ohmyzsh/tools
 	./install.sh
 	#install theme
@@ -145,7 +145,7 @@ fi
 #### 安装autojump
 if ! [ ! -d "~/.autojump" ]; then
 	echo 'installing autojump now.' >&2
-	git clone git://github.com/joelthelion/autojump.git
+	git clone https://github.com/joelthelion/autojump.git
 	cd autojump
 	./install.py
 	cat>>~/.zshrc<<-"eof"
