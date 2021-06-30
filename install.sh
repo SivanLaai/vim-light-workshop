@@ -43,22 +43,35 @@ if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; th
 	echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
 	echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
 	cd ~
+	echo '/usr/local/python3.8/lib'>>python.conf
+	sudo mv python.conf /etc/ld.so.conf.d/python.conf
+	sudo ldconfig
 	sudo rm -rf Python-3.8.8
 fi
 
+cd ~
 #### 编译vim 支持Python和clipboard
 
 if [ ! -d "~/vim" ]; then
 	echo "Downloading Python Install Package."
+	cd ~
 	git clone https://github.com/vim/vim
 fi
 cd vim
 git pull && git fetch
-sudo apt-get install ncurses-dev
+
+# 卸载旧版本vim
+sudo apt-get remove --purge vim-tiny vim vim-runtime vim-common vim-gui-common vim-nox
+# 安装依赖包
+sudo apt install ncurses-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev
+libxt-dev lua5.1 liblua5.1-dev libperl-dev
 export LD_FLAGS="-rdynamic"
-./configure --enable-multibyte
---enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscope --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
-make && sudo make install
+#./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
+./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-command=/usr/local/python3.8/bin/python3.8 \
+--with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge \
+--enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
+make
+sudo make install
 cd ~
 
 # 编译nodejs,插件coc需要nodejs的功能
@@ -94,31 +107,38 @@ sudo apt install \
     libjansson-dev \
     libyaml-dev \
 	libxml2-dev
-git clone https://github.com/universal-ctags/ctags.git
-cd ctags
-./autogen.sh
-./configure --prefix=/usr/local # defaults to /usr/local
-make -j8
-sudo make install 
+if [ ! -d "~/universal-ctags" ]; then
+	echo "Downloading universal-ctags Install Package."
+	git clone https://github.com/universal-ctags/ctags.git
+fi
+if [ ! -d "/usr/local/ctags" ]; then
+	echo "Downloading universal-ctags Install Package."
+	cd ctags
+	./autogen.sh
+	./configure --prefix=/usr/local # defaults to /usr/local
+	make -j8
+	sudo make install 
+fi
 cd ~
-sudo rm -rf ctags
 
 ## 安装vim-plug
 # 安装vim-plug
 #curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-git clone https://github.com/junegunn/vim-plug.git
+if [ ! -d "~/vim-plug" ]; then
+	echo "Downloading vim-plug Install Package."
+	git clone https://github.com/junegunn/vim-plug.git
+fi
 # 如果安装失败的话，可能就需要修改plug.vim
 # find ~ -name 'plug.vim' | xargs perl -pi -e 's|https://git::@github.com/%s.git|git@github.com:%s.git|g'
 if [ ! -d "~/.vim/autoload" ]; then
 	echo "~/.vim/autoload not exsits, now create"
-	mkdir ~/.vim/autoload
+	mkdir -p ~/.vim/autoload
 fi
 cd ~/vim-light-workshop
 cp -rf vimrc ~/.vimrc
 cp -rf gvim/colors ~/.vim/colors
-cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
-sudo rm -rf vim-plug
+cp -rf ~/vim-plug/plug.vim ~/.vim/autoload/plug.vim
 
 #### zsh安装
 if ! [ -x "$(command -v zsh)" ]; then
@@ -132,17 +152,19 @@ fi
 if ! [ ! -d "~/.oh-my-zsh" ]; then
 	echo 'installing oh-my-zsh now.' >&2
 	git clone https://github.com/ohmyzsh/ohmyzsh.git
-	cd ohmyzsh/tools
-	./install.sh
-	#install theme
-	sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
-	#激活环境bash变量
-	echo 'source ~/.bash_profile'>>~/.zshrc
-	cd ~/vim-light-workshop
-	sudo rm -rf ohmyzsh
 else
 	echo 'oh-my-zsh is installed'
+	rm -rf ~/.oh-my-zsh
+	rm -rf ~/.zshrc
 fi
+
+cd ~/ohmyzsh/tools
+./install.sh
+#install theme
+sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
+#激活环境bash变量
+echo 'source ~/.bash_profile'>>~/.zshrc
+cd ~/vim-light-workshop
 
 #### 安装autojump
 if ! [ ! -d "~/.autojump" ]; then
@@ -159,6 +181,7 @@ if ! [ ! -d "~/.autojump" ]; then
 else
 	echo 'autojump is installed'
 fi
+cd ~
 
 cat<<"eof"
 Final Step:
