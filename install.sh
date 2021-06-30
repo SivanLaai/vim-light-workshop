@@ -33,15 +33,18 @@ if [ ! -e "Python-3.8.8.tar.xz" ]; then
 	sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
 	wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
 fi
-tar -xvf Python-3.8.8.tar.xz
-cd Python-3.8.8
-./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
-sudo make altinstall -j8
-# add bin path
-echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
-echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
-cd ~
-sudo rm -rf Python-3.8.8
+if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; then
+	echo "compiling and installing Python."
+	tar -xvf Python-3.8.8.tar.xz
+	cd Python-3.8.8
+	./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
+	sudo make altinstall -j8
+	# add bin path
+	echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
+	echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
+	cd ~
+	sudo rm -rf Python-3.8.8
+fi
 
 #### 编译vim 支持Python和clipboard
 git clone https://github.com/vim/vim
