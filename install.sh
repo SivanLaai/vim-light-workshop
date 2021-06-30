@@ -23,16 +23,6 @@ set -g mouse on
 #设置vim模式
 setw -g mode-keys vi
 eof
-#### 安装autojump
-git clone git://github.com/joelthelion/autojump.git
-cd autojump
-./install.py
-cat>>~/.zshrc<<-"eof"
-[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
-eof
-cd ~
-sudo rm -rf autojump
 
 
 #### 编译python3.8.8
@@ -116,6 +106,7 @@ if [ ! -d "~/.vim/autoload" ]; then
 	echo "~/.vim/autoload not exsits, now create"
 	mkdir ~/.vim/autoload
 fi
+cd ~/vim-light-workshop
 cp -rf vimrc ~/.vimrc
 cp -rf gvim/colors ~/.vim/colors
 cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
@@ -133,8 +124,20 @@ vim install.sh
 sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
 #激活环境bash变量
 echo 'source ~/.bash_profile'>>~/.zshrc
-cd ~
+cd ~/vim-light-workshop
 sudo rm -rf ohmyzsh
+
+#### 安装autojump
+git clone git://github.com/joelthelion/autojump.git
+cd autojump
+./install.py
+cat>>~/.zshrc<<-"eof"
+[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+eof
+
+cd ~
+sudo rm -rf autojump
 cat<<"eof"
 Final Step:
 ## 打开vim
