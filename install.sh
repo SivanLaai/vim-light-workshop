@@ -48,12 +48,13 @@ fi
 
 #### 编译vim 支持Python和clipboard
 
-if [ ! -e "~/vim" ]; then
+if [ ! -d "~/vim" ]; then
 	echo "Downloading Python Install Package."
 	git clone https://github.com/vim/vim
 fi
 cd vim
 git pull && git fetch
+sudo apt-get install ncurses-dev
 export LD_FLAGS="-rdynamic"
 ./configure --enable-multibyte
 --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscope --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
@@ -66,7 +67,7 @@ if [ ! -e "node-v14.17.1-linux-x64.tar.xz" ]; then
 	echo "Downloading node-v14.17.1 Install Package."
 	wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 fi
-tar -xvf node-v14.17.1-linux-x64.tar.xz
+tar -xf node-v14.17.1-linux-x64.tar.xz
 echo "installing nodejs"
 sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs 
 
