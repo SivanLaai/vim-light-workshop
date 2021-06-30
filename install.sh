@@ -32,7 +32,7 @@ cat>>~/.zshrc<<-"eof"
 autoload -U compinit && compinit -u
 eof
 cd ~
-rm -rf autojump
+sudo rm -rf autojump
 
 
 #### 编译python3.8.8
@@ -51,7 +51,7 @@ sudo make altinstall -j8
 echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
 echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
 cd ~
-rm -rf Python-3.8.8
+sudo rm -rf Python-3.8.8
 
 #### 编译vim 支持Python和clipboard
 git clone https://github.com/vim/vim
@@ -62,7 +62,7 @@ export LD_FLAGS="-rdynamic"
 --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscope --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
 make && sudo make install
 cd ~
-rm -rf vim
+sudo rm -rf vim
 
 # 编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
@@ -103,7 +103,7 @@ cd ctags
 make -j8
 sudo make install 
 cd ~
-rm -rf ctags
+sudo rm -rf ctags
 
 ## 安装vim-plug
 # 安装vim-plug
@@ -119,7 +119,7 @@ fi
 cp -rf vimrc ~/.vimrc
 cp -rf gvim/colors ~/.vim/colors
 cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
-rm -rf vim-plug
+sudo rm -rf vim-plug
 
 #### zsh安装
 sudo apt install zsh
@@ -134,7 +134,7 @@ sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
 #激活环境bash变量
 echo 'source ~/.bash_profile'>>~/.zshrc
 cd ~
-rm -rf ohmyzsh
+sudo rm -rf ohmyzsh
 cat<<"eof"
 Final Step:
 ## 打开vim
