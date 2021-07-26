@@ -161,7 +161,8 @@ fi
 cd ~/ohmyzsh/tools
 ./install.sh
 #install theme
-sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+sed -i 's#"robbyrussell"#"powerlevel10k/powerlevel10k"#g' ~/.zshrc
 #激活环境bash变量
 echo 'source ~/.bash_profile'>>~/.zshrc
 cd ~/vim-light-workshop
