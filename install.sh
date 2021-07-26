@@ -151,9 +151,10 @@ fi
 #安装oh-my-zsh
 if ! [ ! -d "~/.oh-my-zsh" ]; then
 	echo 'installing oh-my-zsh now.' >&2
+	cd ~
 	git clone https://github.com/ohmyzsh/ohmyzsh.git
 else
-	echo 'oh-my-zsh is installed'
+	echo 'oh-my-zsh is installed, now reinstall oh-my-zsh'
 	rm -rf ~/.oh-my-zsh
 	rm -rf ~/.zshrc
 fi
@@ -161,7 +162,7 @@ fi
 cd ~/ohmyzsh/tools
 ./install.sh
 #install theme
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 sed -i 's#"robbyrussell"#"powerlevel10k/powerlevel10k"#g' ~/.zshrc
 #激活环境bash变量
 echo 'source ~/.bash_profile'>>~/.zshrc
