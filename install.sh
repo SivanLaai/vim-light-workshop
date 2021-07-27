@@ -47,6 +47,11 @@ if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; th
 	sudo mv python.conf /etc/ld.so.conf.d/python.conf
 	sudo ldconfig
 	sudo rm -rf Python-3.8.8
+	/usr/local/python3.8/bin/python3.8 -m pip install --user --upgrade pip
+    /usr/local/python3.8/bin/python3.8 -m pip install virtualenv
+	cd ~
+    /usr/local/python3.8/bin/python3.8 -m virtualenv venv
+	echo 'source ~/venv/bin/activate'>>~/.bash_profile
 fi
 
 cd ~
