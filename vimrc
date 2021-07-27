@@ -88,8 +88,16 @@ noremap <silent><leader>0 :tabn 10<cr>
 noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
 
+nnoremap x "_x
+nnoremap d "_d
+nnoremap D "_D
+vnoremap d "_d
+
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
 " set paste
-noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>
+noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>i
 noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
 
 
@@ -108,7 +116,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 "when creating a new tab, copy a mirror of nerdtree.
 autocmd BufWinEnter * silent NERDTreeMirror
 nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
-nnoremap <C-x> :NERDTreeClose<CR>
+nnoremap <C-c> :NERDTreeClose<CR>
 "leaderf
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
@@ -165,7 +173,7 @@ let g:gutentags_ctags_extra_args += ['--pythton-kinds=+zl']
 "let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 "let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "
-" 检测 ~/.cache/tags 不存在就新建
+"检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
@@ -182,5 +190,5 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'preservim/vimux'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'posva/vim-vue'
 call plug#end()

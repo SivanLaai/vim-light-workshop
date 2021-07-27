@@ -90,6 +90,19 @@ noremap <silent><leader>0 :tabn 10<cr>
 noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
 
+# 复制不剪切
+nnoremap x "_x
+nnoremap d "_d
+nnoremap D "_D
+vnoremap d "_d
+
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
+" set paste
+noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>i
+noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
+
 "nerdtree
 "when nerdtree is the last window, then close the vim.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
@@ -99,7 +112,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufWinEnter * silent NERDTreeMirror
 "
 nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
-nnoremap <C-b> :NERDTreeClose<CR>
+nnoremap <C-c> :NERDTreeClose<CR>
 
 "leaderf
 let g:Lf_WindowPosition = 'popup'
