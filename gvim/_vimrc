@@ -90,7 +90,7 @@ noremap <silent><leader>0 :tabn 10<cr>
 noremap <silent><tab>[ :tabfirst<cr>
 noremap <silent><tab>] :tablast<cr>
 
-# 复制不剪切
+" 复制不剪切
 nnoremap x "_x
 nnoremap d "_d
 nnoremap D "_D
