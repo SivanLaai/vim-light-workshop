@@ -60,6 +60,19 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+" auto skip to the middle of characters below.
+inoremap () ()<Left>
+inoremap （） （）<Left>
+inoremap [] []<Left>
+inoremap 【】 【】<Left>
+inoremap {} {}<Left>
+inoremap ｛｝ ｛｝<Left>
+inoremap <> <><Left>
+inoremap 《》 《》<Left>
+inoremap "" ""<Left>
+inoremap “” “”<Left>
+inoremap '' ''<Left>
+inoremap ’’ ’’<Left>
 " leader ??
 let g:mapleader=","
 " ????ģʽ??ʹ?? leader+w ???ٱ????ļ?
@@ -105,13 +118,19 @@ noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<
 noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
 
 "nerdtree
+"start nerdtree. If a file is specified, move the cursor to its window.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 "when nerdtree is the last window, then close the vim.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
             \ quit | endif
+" Start NERDTree when Vim starts with a directory argument
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "when creating a new tab, copy a mirror of nerdtree.
 autocmd BufWinEnter * silent NERDTreeMirror
-"
 nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
 nnoremap <C-c> :NERDTreeClose<CR>
 

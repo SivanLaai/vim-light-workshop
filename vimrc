@@ -53,11 +53,17 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " auto skip to the middle of characters below.
 inoremap () ()<Left>
+inoremap （） （）<Left>
 inoremap [] []<Left>
+inoremap 【】 【】<Left>
 inoremap {} {}<Left>
+inoremap ｛｝ ｛｝<Left>
 inoremap <> <><Left>
+inoremap 《》 《》<Left>
 inoremap "" ""<Left>
+inoremap “” “”<Left>
 inoremap '' ''<Left>
+inoremap ’’ ’’<Left>
 " leader 键
 let g:mapleader=","
 " 插入模式下使用 leader+w 快速保存文件
