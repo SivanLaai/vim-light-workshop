@@ -196,6 +196,6 @@ cp -rf gvim/colors vimfile
 ##### 安装方式
 在Xshell 配色方案里导入 本项目中的xcs文件
 #### Solarized Dark
-![Image text](img/Solarized_Dark.jpg)
+![Image text](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/Solarized_Dark.3nb6a0yfdwk0.jpg)
 #### Solarized Light
-![Image text](img/Solarized_Light.png)
+![Image text](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/Solarized_Light.70z8wbs2y1c0.png)
