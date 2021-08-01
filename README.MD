@@ -1,26 +1,33 @@
 # Vim-Tmux 一键安装轻量级工作站
 ## 添加功能：
 - 文件管理：插件NerdTree
+
 打开文件管理：Crtl + N
 退出文件管理：Crtl + C
+
 - 跳转功能：Ctags
+
 跳转到定义：Crtl + ]
 后退：Crtl + T
 - 任意跳转功能，主要是和前一个功能进行补充；JumpAny
+
 跳转到定义：cursor移动到关键词 , + j
 - 搜索功能：LeaderF
+
 打开搜索：, + f
 结果上翻：Crtl + k
 结果下翻：Crtl + j
 打开：Enter
 帮助：Tab
 - 代码补全：Coc.nvim
+
 打开搜索：在对应的关键词后面按tab会提示
 结果下翻：提示后按Tab可以顺序下翻，或者用Crtl + n
 结果上翻：提示后Crtl + p
 选择：Enter
 - 代码错误修正：Coc.nvim
 - **单终端编译和写代码，不用Crtl-z切后台编译**，直接借助tmux和vimux插件实现在一个界面写代码和编译
+
 创建tmux：tmux session -t mytmux
 分屏tmux：打开vim后输入```, + v + p```，输入相关的运行命令便可打开命令行
 运行上一次的命令：需要先运行在```, + v + p```，然后在```, + v + l```便可以运行最后一次的命令
