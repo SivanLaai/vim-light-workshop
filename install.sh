@@ -23,6 +23,7 @@ bind-key l select-pane -R # right
 set -g mouse on
 #设置vim模式
 setw -g mode-keys vi
+set -g default-terminal "screen-256color"
 eof
 
 
@@ -190,6 +191,7 @@ sed -i 's#"robbyrussell"#"powerlevel10k/powerlevel10k"#g' ~/.zshrc
 #激活环境bash变量
 output=$(cat ~/.zshrc | grep "bash_profile")
 if [ ! -n "$output" ]; then
+	echo 'alias tmux="TERM=screen-256color-bce tmux"'>>~/.zshrc
 	echo 'source ~/.bash_profile'>>~/.zshrc
 fi
 
