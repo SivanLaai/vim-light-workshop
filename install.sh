@@ -12,7 +12,9 @@ sudo apt install tmux
 # 配置tmux支持快捷键与vim无缝切换
 if [ ! -e "$HOME/.tmux.conf" ]; then
     touch ~/.tmux.conf
-fi 
+else
+	rm ~/.tmux.conf
+fi
 cat>>~/.tmux.conf<<-"eof"
 # VIM模式
 bind-key k select-pane -U # up
@@ -191,7 +193,7 @@ sed -i 's#"robbyrussell"#"powerlevel10k/powerlevel10k"#g' ~/.zshrc
 #激活环境bash变量
 output=$(cat ~/.zshrc | grep "bash_profile")
 if [ ! -n "$output" ]; then
-	echo 'alias tmux="TERM=screen-256color-bce tmux"'>>~/.zshrc
+	echo 'alias tmux="tmux -2"'>>~/.zshrc
 	echo 'source ~/.bash_profile'>>~/.zshrc
 fi
 
