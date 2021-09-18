@@ -55,6 +55,13 @@ set list
 set wildmenu
 set wildmode=longest:list,full
 
+" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
+filetype plugin on
+let g:tex_flavor='latex'
+set iskeyword+=:
+let g:Tex_CompileRule_pdf='xelatex -interaction=nonstopmode $*'
+let g:Tex_DefaultTargetFormat="pdf"
+
 " use ctrl+h/j/k/l switch window
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -80,7 +87,7 @@ imap ,w <esc>:w<CR>
 " Ê¹?? jj ???Ù»Øµ? normal Ä£Ê½
 imap jj <Esc>l
 inoremap <C-l> <C-o>A
-" Ê¹?? leader+e ?????Ë³ö´°¿?(???Ç²????Ø±? buffer)
+" Ê¹?? leader+e ?????Ë³íº“í°¿?(???Ç²????Ø±? buffer)
 noremap <leader>e :q<cr>
 " Ê¹?? leader+b ???Ù¹Ø±Õµ?Ç° buffer
 noremap <leader>b :bd<cr>
@@ -252,8 +259,9 @@ nmap <C-s> <Plug>MarkdownPreviewStop
 "vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'vim-latex/vim-latex'
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-vimtex coc-snippets'}
 Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
