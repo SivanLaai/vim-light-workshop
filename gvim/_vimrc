@@ -24,7 +24,6 @@ set clipboard+=unnamed
 set vb t_vb= " 不让vim发出讨厌的滴滴声
 " 光标移动到buffer的顶部和底部时保持3行距离,窗口滚动最小距离
 set scrolloff=3
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936 "设置vim自动识别编码
 set number "行号
 set nocompatible " 使用vim自己的编辑模式
 syntax on " 语法高亮
