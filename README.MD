@@ -36,7 +36,7 @@
 - 编译latex：```,lc```
 - 查看latex：```,lv```
 - 删除latex相关缓存文件：```,lr```
-![vim-latex-preview](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/vim-latex-preview.74wxq8kv9ok0.png)
+![vim-latex-preview](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/vim-latex-preview.57of35zszoc0.png)
 
 ## 效果预览
 ![Image text](img/preview.gif)
