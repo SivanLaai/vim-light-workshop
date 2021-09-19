@@ -26,12 +26,17 @@
 
 ### 6.代码错误修正：Coc.nvim
 ### 7.**单终端编译和写代码，不用Crtl-z切后台编译**，直接借助tmux和vimux插件实现在一个界面写代码和编译
-- 创建tmux：tmux session -t mytmux
+- 创建tmux：```tmux session -t mytmux```
 - 分屏tmux：打开vim后输入```, + v + p```，输入相关的运行命令便可打开命令行
 - 运行上一次的命令：需要先运行在```, + v + p```，然后在```, + v + l```便可以运行最后一次的命令
 - 切换tmux：按Crtl + b 再按 hjkl 任意，例如向下切换则Crtl + b，然后按j，便可向下切换tmux
 
 ### 8.更加强大的终端zsh和on-my-zsh管理，支持主题和插件 
+### 9.Windows Gvim支持Latex保存自动编译，编译实时显示（Windows Vim Latex Live Preview）
+- 编译latex：```,lc```
+- 查看latex：```,lv```
+- 删除latex相关缓存文件：```,lr```
+![vim-latex-preview](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/vim-latex-preview.74wxq8kv9ok0.png)
 
 ## 效果预览
 ![Image text](img/preview.gif)
