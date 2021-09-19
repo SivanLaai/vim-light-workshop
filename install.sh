@@ -25,6 +25,7 @@ bind-key l select-pane -R # right
 set -g mouse on
 #设置vim模式
 setw -g mode-keys vi
+#设置tmux的颜色模式
 set -g default-terminal "screen-256color"
 eof
 

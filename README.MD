@@ -35,7 +35,9 @@
 
 ## 效果预览
 ![Image text](img/preview.gif)
-## linux安装方式
+
+# Vim
+## Ubuntu安装方式
 ### 1.脚本安装
 ```bash
 git clone https://github.com/SivanLaai/vimrc.git
@@ -60,8 +62,10 @@ bind-key h select-pane -L # left
 bind-key l select-pane -R # right
 #开启鼠标
 set -g mouse on
-#在tmux使用vim模式
+#设置vim模式
 setw -g mode-keys vi
+#设置tmux的颜色模式
+set -g default-terminal "screen-256color"
 eof
 ```
 #### zsh安装
@@ -95,15 +99,27 @@ eof
 #### 编译python3.8.8
 ```bash
 #Ubuntu
-sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev
+»···
+sudo apt-get install build-essential
+sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev libbz2-dev liblzma-dev
 wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
 tar -xvf Python-3.8.8.tar.xz
-cd Python-3.8.8.tar.xz
+cd Python-3.8.8
 ./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
-make altinstall -j8
-sudo make install
+sudo make altinstall -j8
 # add bin path
 echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
+echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
+cd ~
+echo '/usr/local/python3.8/lib'>>python.conf
+sudo mv python.conf /etc/ld.so.conf.d/python.conf
+sudo ldconfig
+sudo rm -rf Python-3.8.8
+/usr/local/python3.8/bin/python3.8 -m pip install --user --upgrade pip
+/usr/local/python3.8/bin/python3.8 -m pip install virtualenv
+cd ~
+/usr/local/python3.8/bin/python3.8 -m virtualenv venv
+echo 'source ~/venv/bin/activate'>>~/.bash_profile
 ```
 #### 编译vim 支持Python和clipboard
 ```bash
@@ -173,29 +189,55 @@ vim
 :PlugInstall #等待插件安装完成
 ```
 
-## gvim
-#### 安装
-```
-下载python编译版本gvim：https://github.com/vim/vim-win32-installer/releases
-安装相关的python
-下载安装字体 DejaVu Sans Mono for Powerline
-https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf
-```
-#### 复制配置文件
+# gvim
+## windows
+#### 1.安装支持Python的GVim
+- [下载python编译版本gvim](https://github.com/vim/vim-win32-installer/releases/latest)
+
+#### 2.安装对应版本的Python
+- [查看相关版本的pyhon下载安装：](https://github.com/vim/vim-win32-installer/releases/latest)
+ ![python](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/python.2aejfb0v8g7w.png)
+- [下载Python](https://www.python.org/downloads/)
+
+#### 3.安装字体
+- [下载字体 DejaVu Sans Mono for Powerline](https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf)
+
+#### 4.安装universal-ctags
+- [下载universal-ctags](https://github.com/universal-ctags/ctags-win32/releases)
+- 将ctags拷贝到安装路径，如```D:\Program Files\ctags```
+- 配置路径```D:\Program Files\ctags```为系统环境变量
+
+#### 5.安装ripgrep
+- [下载ripgrep](https://github.com/BurntSushi/ripgrep/releases/latest)
+- 将ripgrep程序拷贝到安装路径，如```D:\Program Files\ripgrep```
+- 配置路径```D:\Program Files\ripgrep```为系统环境变量
+#### 6.安装Latex
+- [下载miktex](https://miktex.org/download)
+- 安装mitex并更新
+#### 7.安装Okular
+- [下载Okular](https://binary-factory.kde.org/job/Okular_Nightly_win64/)
+- 将Okular程序安装到路径，如```D:\Program Files\Okular```
+- 配置路径```D:\Program Files\Okular```为系统环境变量
+#### 8.复制配置文件
 ```zsh
 cp -rf gvim/_vimrc $vim/_vimrc
 cp -rf gvim/autoload vimfile
 # Solarized Dark 主题复制
 cp -rf gvim/colors vimfile 
 ```
-#### 配置gvim
+#### 7.配置gvim
 ```zsh
 :PlugInstall #待安装完成
 ```
 ## Xshell 护眼主题 Eyes Protection
-##### 安装方式
-在Xshell 配色方案里导入 本项目中的xcs文件
+### 安装方式
+- 在Xshell 配色方案里导入 本项目中的xcs文件
+
+### 界面预览
 #### Solarized Dark
+
 ![Image text](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/Solarized_Dark.3nb6a0yfdwk0.jpg)
+
 #### Solarized Light
+
 ![Image text](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/Solarized_Light.70z8wbs2y1c0.png)
