@@ -290,11 +290,14 @@ endfunction
 
 nmap <Leader>lr :call ClearLatexCaches()<CR>
 
+" vim-terminal-help
+let g:terminal_shell='bash'
+
 "vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'vim-latex/vim-latex'
-"#Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'skywind3000/vim-terminal-help'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets'}
