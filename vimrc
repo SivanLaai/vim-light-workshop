@@ -4,9 +4,9 @@ colorscheme solarized
 "禁止生成中间文件
 set nobackup
 set noswapfile
-" 使回格键（backspace）正常处理indent, eol, start等  
+" 使回格键（backspace）正常处理indent, eol, start等
 set backspace=2
-" 允许backspace和光标键跨越行边界  
+" 允许backspace和光标键跨越行边界
 set whichwrap+=<,>,h,l
 " 设置文件的历史记录
 set history=1000
@@ -105,6 +105,10 @@ vnoremap <leader>d ""d
 " set paste
 noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>i
 noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
+" remove space on the rear
+autocmd BufWritePre * :%s/\s\+$//e
+" replace tab with 4 spaces
+autocmd BufWritePre * :%retab
 
 
 "nerdtree
@@ -142,25 +146,6 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
-" vimux
-" Run the current file with rspec
-" Run the current file with rspec
-map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-" Close vim tmux runner opened by VimuxRunCommand
-map <Leader>vq :VimuxCloseRunner<CR>
-" Interrupt any command running in the runner pane
-map <Leader>vx :VimuxInterruptRunner<CR>
-" Zoom the runner pane (use <bind-key> z to restore runner pane)
-map <Leader>vz :call VimuxZoomRunner()<CR>
-" Clear the terminal screen of the runner pane.
-map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
-
 " ctags
 set tags=./.tags;,.tags
 "" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -183,6 +168,29 @@ let g:gutentags_ctags_extra_args += ['--pythton-kinds=+zl']
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
+
+" vim-terminal-help
+let g:terminal_shell='bash'
+
+" linux
+" vimux
+" Run the current file with rspec
+map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+" Inspect runner pane
+map <Leader>vi :VimuxInspectRunner<CR>
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>vq :VimuxCloseRunner<CR>
+" Interrupt any command running in the runner pane
+map <Leader>vx :VimuxInterruptRunner<CR>
+" Zoom the runner pane (use <bind-key> z to restore runner pane)
+map <Leader>vz :call VimuxZoomRunner()<CR>
+" Clear the terminal screen of the runner pane.
+map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+
 
 "vim-plug
 call plug#begin('~/.vim/plugged')

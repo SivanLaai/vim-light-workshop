@@ -13,9 +13,9 @@ set undofile
 set undodir=~$HOME/vimfiles/undodir
 set directory^=$HOME/vimfiles/swapdir
 set backupdir^=$HOME/vimfiles/backdir
-" 使回格键（backspace）正常处理indent, eol, start等  
+" 使回格键（backspace）正常处理indent, eol, start等
 set backspace=2
-" 允许backspace和光标键跨越行边界  
+" 允许backspace和光标键跨越行边界
 set whichwrap+=<,>,h,l
 " 设置文件的历史记录
 set history=1000
@@ -35,7 +35,7 @@ filetype indent on
 set autoindent
 set tabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set softtabstop=4
 set wrap
 set linebreak
@@ -115,6 +115,10 @@ vnoremap <leader>d ""d
 " set paste
 noremap <Leader>c :set paste<CR>:set mouse-=a<CR>:tabnew<CR><C-o>:NERDTreeClose<CR>:set nonu<CR>i
 noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
+" remove space on the rear
+autocmd BufWritePre * :%s/\s\+$//e
+" replace tab with 4 spaces
+autocmd BufWritePre * :%retab
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
@@ -175,6 +179,10 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
+" vim-terminal-help
+let g:terminal_shell='bash'
+
+" gvim
 "markdown
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
@@ -283,15 +291,12 @@ imap <Leader>lc <ESC>:w<CR><Leader>ll<ESC>i
 nmap <Leader>lc :w<CR><Leader>ll
 
 function ClearLatexCaches()
-	let currFileName = expand('%:r')
-	let cmd = printf("!del %s.log %s.aux", currFileName, currFileName)
-	silent exec cmd
+    let currFileName = expand('%:r')
+    let cmd = printf("!del %s.log %s.aux", currFileName, currFileName)
+    silent exec cmd
 endfunction
 
 nmap <Leader>lr :call ClearLatexCaches()<CR>
-
-" vim-terminal-help
-let g:terminal_shell='bash'
 
 "vim-plug
 call plug#begin('~/.vim/plugged')
