@@ -4,9 +4,17 @@
 - 打开文件管理：Crtl + N
 - 退出文件管理：Crtl + C
 
-### 2.跳转功能：Ctags
+### 2.跳转功能：Ctags\pygments\gtags
 - 跳转到定义：Crtl + ]
 - 后退：Crtl + T
+- Ctrl+\ c    Find functions calling this function
+- Ctrl+\ d    Find functions called by this function
+- Ctrl+\ e    Find this egrep pattern
+- Ctrl+\ f    Find this file
+- Ctrl+\ g    Find this definition
+- Ctrl+\ i    Find files #including this file
+- Ctrl+\ s    Find this C symbol
+- Ctrl+\ t    Find this text string
 
 ### 3.任意跳转功能，主要是和前一个功能进行补充；JumpAny
 - 跳转到定义：cursor移动到关键词 , + j
@@ -31,7 +39,7 @@
 - 运行上一次的命令：需要先运行在```, + v + p```，然后在```, + v + l```便可以运行最后一次的命令
 - 切换tmux：按Crtl + b 再按 hjkl 任意，例如向下切换则Crtl + b，然后按j，便可向下切换tmux
 
-### 8.更加强大的终端zsh和on-my-zsh管理，支持主题和插件 
+### 8.更加强大的终端zsh和on-my-zsh管理，支持主题和插件
 ### 9.Windows Gvim支持Latex保存自动编译，编译实时显示（Windows Vim Latex Live Preview）
 - 编译latex：```,lc```
 - 查看latex：```,lv```
@@ -58,7 +66,7 @@ sudo apt install tmux
 # 配置tmux支持快捷键与vim无缝切换
 if [ ! -e "~/.tmux.conf" ]; then
     touch ~/.tmux.conf
-fi 
+fi
 cat>>~/.tmux.conf<<-"eof"
 # VIM模式
 bind-key k select-pane -U # up
@@ -145,7 +153,7 @@ cp -rf vimrc ~/.vimrc
 wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 tar -xvf node-v14.17.1-linux-x64.tar.xz
 echo "installing nodejs"
-sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs 
+sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs
 ```
 #添加nodejs环境变量
 ```bash
@@ -153,7 +161,7 @@ bash_file="~/.bash_profile"
 echo ${bash_file}
 if [ ! -e "~/.bash_profile" ]; then
     touch ~/.bash_profile
-fi 
+fi
 cat>>~/.bash_profile<<-"eof"
 #config nodejs env path
 VERSION=v14.17.1
@@ -176,11 +184,39 @@ cd ctags
 ./autogen.sh
 ./configure --prefix=/usr/local # defaults to /usr/local
 make -j8
-sudo make install 
+sudo make install
 cd ..
 rm -rf ctags
 ```
+
+```bash
+#pygments（主要作用是配合ctags来查找引用）
+pip install pygments
+```
+
+```bash
+#安装gtags，主要用来索引，相比ctags支持查找引用
+GtagsVersion="global-6.6.7"
+if [ ! -e "$HOME/$GtagsVersion.tar.gz" ]; then
+    echo "Downloading gtags Install Package."
+    output=$(wget https://ftp.gnu.org/pub/gnu/global/$GtagsVersion.tar.gz)
+    echo $output
+fi
+
+if [ ! -e "/usr/local/bin/gtags" ]; then
+    echo "compiling gtags."
+    rm -rf ~/$GtagsVersion
+    tar -zxvf $GtagsVersion.tar.gz
+    cd $GtagsVersion
+    ./configure --bindir=/usr/local/bin # defaults to /usr/local
+    make -j8
+    sudo make install
+fi
+cd ~
+```
+
 ## 安装vim-plug
+
 ```bash
 # 安装vim-plug
 #curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -207,10 +243,19 @@ vim
 #### 3.安装字体
 - [下载字体 DejaVu Sans Mono for Powerline](https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf)
 
-#### 4.安装universal-ctags
+#### 4.安装universal-ctags/pygments 和 gtags
+##### （1）universal-ctags
 - [下载universal-ctags](https://github.com/universal-ctags/ctags-win32/releases)
 - 将ctags拷贝到安装路径，如```D:\Program Files\ctags```
 - 配置路径```D:\Program Files\ctags```为系统环境变量
+##### （2）pygments（主要作用是配合ctags来查找引用）
+```
+pip install pygments
+```
+##### （3）gtags
+- [下载gtags](http://adoxa.altervista.org/global/dl.php?f=win32)
+- 将gtags拷贝到安装路径，如```D:\Program Files\gtags```
+- 配置路径```D:\Program Files\gtags```为系统环境变量
 
 #### 5.安装ripgrep
 - [下载ripgrep](https://github.com/BurntSushi/ripgrep/releases/latest)
@@ -228,7 +273,7 @@ vim
 cp -rf gvim/_vimrc $vim/_vimrc
 cp -rf gvim/autoload vimfile
 # Solarized Dark 主题复制
-cp -rf gvim/colors vimfile 
+cp -rf gvim/colors vimfile
 ```
 #### 7.配置gvim
 ```zsh
