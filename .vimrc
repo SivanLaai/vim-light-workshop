@@ -133,9 +133,20 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "when creating a new tab, copy a mirror of nerdtree.
-autocmd BufWinEnter * silent NERDTreeMirror
-nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
-nnoremap <C-c> :NERDTreeClose<CR>
+let g:nerdfocus = 1
+
+function FocusNerdTree()
+    if g:nerdfocus == 0
+        silent NERDTreeMirror
+        silent NERDTreeFocus
+        let g:nerdfocus = 1
+    else
+        let g:nerdfocus = 0
+        silent NERDTreeClose
+    endif
+endfunction
+" Crtl + c to open and close NERDTree
+nmap <C-c> :call FocusNerdTree()<CR>
 
 "leaderf
 let g:Lf_WindowPosition = 'popup'
@@ -160,7 +171,8 @@ if executable('gtags-cscope') && executable('gtags')
 endif
 
 " pygments
-let $GTAGSLABEL = 'native-pygments'
+"let $GTAGSLABEL = 'native-pygments'
+let $GTAGSLABEL = 'native'
 let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 
 " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
@@ -168,8 +180,8 @@ let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
 "" 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
-let g:gutentags_ctags_extra_args += ['--python-kinds=+zl']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--pythton-kinds=+zl']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
@@ -185,28 +197,14 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
-" gtags_cscope
-set csprg='gtags-cscope'
-"let GtagsCscope_Auto_Map = 1
-"let GtagsCscope_Keep_Alive = 1
-"noremap <silent> <leader>h :GtagsCscope<cr>
+" vim-format
+" codeformat
+noremap <F3> :Autoformat<CR>
 
-" gutentags_plus
-" change focus to quickfix window after search (optional).
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_plus_switch = 1
-" 修改cscode的可执行目录
-let g:gutentags_plus_nomap = 1
-noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
-noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
-noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
-noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
-noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
-noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
-noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
-noremap <silent> <leader>gz :GscopeFind z <C-R><C-W><cr>
+" gtags_cscope
+set cscopeprg='gtags-cscope'
+let GtagsCscope_Auto_Map = 1
+noremap <silent> <leader>h :GtagsCscope<cr>
 
 " coc-vim
 " confirm what you select
@@ -223,7 +221,7 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 
 " vim-terminal-help
-let g:terminal_shell='bash'
+let g:terminal_shell='zsh'
 
 " linux
 " vimux
@@ -249,16 +247,15 @@ map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
 call plug#begin('~/.vim/plugged')
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
 Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
-Plug 'skywind3000/vim-preview'
-"Plug 'jsfaint/gen_tags.vim'
+Plug 'joereynolds/gtags-scope'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'preservim/vimux'
-Plug 'posva/vim-vue'
+Plug 'Chiel92/vim-autoformat'
+Plug 'prettier/vim-prettier'
 call plug#end()
