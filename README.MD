@@ -110,6 +110,9 @@ pacman -Su
 # 安装Clang64编译环境
 pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
 ```
+- [下载git](https://github.com/git-for-windows/git/releases/tag/v2.33.0.windows.2)
+- 将git程序安装到路径，如```D:\Program Files\git```
+- 配置路径```D:\Program Files\git\bin```为系统环境变量
 - 想卸载某个包的话
 ```bash
 pacman -Rs mingw-w64-clang-x86_64-toolchain
