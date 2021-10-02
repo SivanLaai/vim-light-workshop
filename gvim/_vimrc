@@ -123,7 +123,7 @@ autocmd BufWritePre * :%retab
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+"autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 "when nerdtree is the last window, then close the vim.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
             \ quit | endif
@@ -133,9 +133,21 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "when creating a new tab, copy a mirror of nerdtree.
-autocmd BufWinEnter * silent NERDTreeMirror
-nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
-nnoremap <C-c> :NERDTreeClose<CR>
+let g:nerdfocus = 1
+
+function FocusNerdTree()
+    if g:nerdfocus == 0
+        silent NERDTreeMirror
+        silent NERDTreeFocus
+        let g:nerdfocus = 1
+    else
+        let g:nerdfocus = 0
+        silent NERDTreeClose
+    endif
+endfunction
+
+
+nmap <C-c> :call FocusNerdTree()<CR>
 
 "leaderf
 let g:Lf_WindowPosition = 'popup'
@@ -183,6 +195,13 @@ endif
 set cscopeprg='gtags-cscope'
 let GtagsCscope_Auto_Map = 1
 noremap <silent> <leader>h :GtagsCscope<cr>
+
+" vim-format
+" codeformat
+noremap <F3> :Autoformat<CR>
+" c
+"let g:formatdef_astyle_c = '"astyle --mode=c --style=mozilla --attach-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+"let g:formatters_c = ['astyle_c']
 
 " coc-vim
 " confirm what you select
@@ -326,7 +345,7 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'skywind3000/vim-terminal-help'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
 Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
@@ -334,7 +353,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'joereynolds/gtags-scope'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
-Plug 'posva/vim-vue'
+Plug 'Chiel92/vim-autoformat'
+Plug 'prettier/vim-prettier'
 call plug#end()
 
 

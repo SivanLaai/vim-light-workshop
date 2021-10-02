@@ -51,183 +51,11 @@
 
 # Vim
 ## Ubuntu安装方式
-### 1.脚本安装
 ```bash
 git clone https://github.com/SivanLaai/vimrc.git
 cd vimrc
 ./install.sh
 #TODO: 安装完成记得进入vim更新插件
-```
-### 2.常规安装
-#### tmux安装
-```bash
-sudo apt install libevent ncurses
-sudo apt install tmux
-# 配置tmux支持快捷键与vim无缝切换
-if [ ! -e "~/.tmux.conf" ]; then
-    touch ~/.tmux.conf
-fi
-cat>>~/.tmux.conf<<-"eof"
-# VIM模式
-bind-key k select-pane -U # up
-bind-key j select-pane -D # down
-bind-key h select-pane -L # left
-bind-key l select-pane -R # right
-#开启鼠标
-set -g mouse on
-#设置vim模式
-setw -g mode-keys vi
-#设置tmux的颜色模式
-set -g default-terminal "screen-256color"
-eof
-```
-#### zsh安装
-```bash
-sudo apt install zsh
-#安装oh-my-zsh
-option 1
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# option 2
-git clone git@github.com:ohmyzsh/ohmyzsh.git
-cd ohmyzsh/tools
-vim install.sh
-#修改为ssh git
-./install.sh
-#install theme
-sed -i 's#"robbyrussell"#"agnoster"#g' ~/.zshrc
-#激活环境bash变量
-echo 'source ~/.bash_profile'>>~/.zshrc
-```
-#### 安装autojump
-```zsh
-git clone git://github.com/joelthelion/autojump.git
-cd autojump
-./install.py
-cat>>~/.zshrc<<-"eof"
-[[ -s /home/laixinhua/.autojump/etc/profile.d/autojump.sh ]] && source /home/laixinhua/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
-eof
-
-```
-#### 编译python3.8.8
-```bash
-#Ubuntu
-»···
-sudo apt-get install build-essential
-sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev libbz2-dev liblzma-dev
-wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
-tar -xvf Python-3.8.8.tar.xz
-cd Python-3.8.8
-./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
-sudo make altinstall -j8
-# add bin path
-echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
-echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
-cd ~
-echo '/usr/local/python3.8/lib'>>python.conf
-sudo mv python.conf /etc/ld.so.conf.d/python.conf
-sudo ldconfig
-sudo rm -rf Python-3.8.8
-/usr/local/python3.8/bin/python3.8 -m pip install --user --upgrade pip
-/usr/local/python3.8/bin/python3.8 -m pip install virtualenv
-cd ~
-/usr/local/python3.8/bin/python3.8 -m virtualenv venv
-echo 'source ~/venv/bin/activate'>>~/.bash_profile
-```
-#### 编译vim 支持Python和clipboard
-```bash
-git clone https://github.com/vim/vim
-cd vim
-git pull && git fetch
-export LD_FLAGS="-rdynamic"
-./configure --enable-multibyte
---enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscope --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
-make && sudo make install
-```
-```bash
-# 复制配置文件
-cp -rf vimrc ~/.vimrc
-```
-#### 安装nodejs, 插件coc.vim会用到这个软件
-```bash
-wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
-tar -xvf node-v14.17.1-linux-x64.tar.xz
-echo "installing nodejs"
-sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs
-```
-#添加nodejs环境变量
-```bash
-bash_file="~/.bash_profile"
-echo ${bash_file}
-if [ ! -e "~/.bash_profile" ]; then
-    touch ~/.bash_profile
-fi
-cat>>~/.bash_profile<<-"eof"
-#config nodejs env path
-VERSION=v14.17.1
-DISTRO=linux-x64
-export PATH=/usr/local/nodejs/bin:$PATH
-eof
-```
-```bash
-#安装ctags，主要用来索引
-#安装依赖
-sudo apt install \
-    gcc make \
-    pkg-config autoconf automake \
-    python3-docutils \
-    libseccomp-dev \
-    libjansson-dev \
-    libyaml-dev \
-git clone https://github.com/universal-ctags/ctags.git
-cd ctags
-./autogen.sh
-./configure --prefix=/usr/local # defaults to /usr/local
-make -j8
-sudo make install
-cd ..
-rm -rf ctags
-```
-
-```bash
-#pygments（主要作用是配合ctags来查找引用）
-pip install pygments
-```
-
-```bash
-#安装gtags，主要用来索引，相比ctags支持查找引用
-GtagsVersion="global-6.6.7"
-if [ ! -e "$HOME/$GtagsVersion.tar.gz" ]; then
-    echo "Downloading gtags Install Package."
-    output=$(wget https://ftp.gnu.org/pub/gnu/global/$GtagsVersion.tar.gz)
-    echo $output
-fi
-
-if [ ! -e "/usr/local/bin/gtags" ]; then
-    echo "compiling gtags."
-    rm -rf ~/$GtagsVersion
-    tar -zxvf $GtagsVersion.tar.gz
-    cd $GtagsVersion
-    ./configure --bindir=/usr/local/bin # defaults to /usr/local
-    make -j8
-    sudo make install
-fi
-cd ~
-```
-
-## 安装vim-plug
-
-```bash
-# 安装vim-plug
-#curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-#    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-git clone git@github.com:junegunn/vim-plug.git
-# 如果安装失败的话，可能就需要修改plug.vim
-find ~ -name 'plug.vim' | xargs perl -pi -e 's|https://git::@github.com/%s.git|git@github.com:%s.git|g'
-cp -rf ./vim-plug/plug.vim ~/.vim/autoload/plug.vim
-## 打开vim
-vim
-:PlugInstall #等待插件安装完成
 ```
 
 # gvim
@@ -268,14 +96,40 @@ pip install pygments
 - [下载Okular](https://binary-factory.kde.org/job/Okular_Nightly_win64/)
 - 将Okular程序安装到路径，如```D:\Program Files\Okular```
 - 配置路径```D:\Program Files\Okular```为系统环境变量
-#### 8.复制配置文件
+#### 8.安装MSYS2
+- [下载MSYS2](https://www.msys2.org/)
+- 将MSYS2程序安装到路径，如```D:\Program Files\MSYS2```
+- 配置路径```D:\Program Files\MSYS2\usr\bin```为系统环境变量
+- 配置路径```D:\Program Files\MSYS2\clang4\bin```为系统环境变量
+- 安装clang64
+```bash
+# 更新软件库
+pacman -Syu
+# 更新核心软件
+pacman -Su
+# 安装Clang64编译环境
+pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
+```
+- 想卸载某个包的话
+```bash
+pacman -Rs mingw-w64-clang-x86_64-toolchain
+```
+#### 9.配置vim-format依赖
+```zsh
+#C++ 通过Clang64已经成功支持
+#Python
+pip install --upgrade autopep8
+#html\css\js
+npm install -g js-beautify
+```
+#### 10.复制配置文件
 ```zsh
 cp -rf gvim/_vimrc $vim/_vimrc
 cp -rf gvim/autoload vimfile
 # Solarized Dark 主题复制
 cp -rf gvim/colors vimfile
 ```
-#### 7.配置gvim
+#### 11.配置gvim
 ```zsh
 :PlugInstall #待安装完成
 ```

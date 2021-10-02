@@ -221,6 +221,16 @@ fi
 
 cd ~
 
+#### 配置vim-format依赖
+#C++
+sudo apt install clang-format
+#java
+sudo apt-get install astyle
+#Python
+pip install --upgrade autopep8
+#html\css\js
+npm install -g js-beautify
+
 cat<<"eof"
 Final Step:
 ## 打开vim
