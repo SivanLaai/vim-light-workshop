@@ -231,6 +231,9 @@ pip install --upgrade autopep8
 #html\css\js
 npm install -g js-beautify
 
+#### leaderf中文显示二进制
+git config --global core.quotepath false
+
 cat<<"eof"
 Final Step:
 ## 打开vim
