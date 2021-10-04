@@ -15,6 +15,7 @@ if [ ! -e "$HOME/.tmux.conf" ]; then
 else
     rm ~/.tmux.conf
 fi
+
 cat>>~/.tmux.conf<<-"eof"
 # VIM模式
 bind-key k select-pane -U # up
@@ -39,6 +40,7 @@ if [ ! -e "Python-3.8.8.tar.xz" ]; then
     sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev libbz2-dev liblzma-dev
     wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
 fi
+
 if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; then
     echo "compiling and installing Python."
     tar -xvf Python-3.8.8.tar.xz
@@ -72,8 +74,7 @@ fi
 
 cd ~
 output=$(vim --version | grep "SivanLaai")
-if [ ! -n "$output" ]
-then
+if [ ! -n "$output" ]; then
     cd ~/vim
     git pull && git fetch
 
@@ -101,6 +102,7 @@ if [ ! -e "node-v14.17.1-linux-x64.tar.xz" ]; then
     echo "Downloading node-v14.17.1 Install Package."
     wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 fi
+
 if [ ! -e "/usr/local/nodejs/bin/node" ]; then
     tar -xf node-v14.17.1-linux-x64.tar.xz
     echo "installing nodejs"
@@ -114,13 +116,12 @@ if [ ! -e "$HOME/.bash_profile" ]; then
 fi
 
 output=$(cat ~/.bash_profile | grep "config nodejs env path")
-if [ ! -n "$output" ]; then
-    cat>>$HOME/.bash_profile<<-"eof"
-    #config nodejs env path
-    VERSION=v14.17.1
-    DISTRO=linux-x64
-    export PATH=/usr/local/nodejs/bin:$PATH
-    eof
+if [ ! -n "$output" ]
+then
+    echo '#config nodejs env path'>>~/.bash_profile
+    echo 'VERSION=v14.17.1'>>~/.bash_profile
+    echo 'DISTRO=linux-x64'>>~/.bash_profile
+    echo 'export PATH=/usr/local/nodejs/bin:$PATH'>>~/.bash_profile
 fi
 
 #安装ctags，主要用来索引
@@ -180,14 +181,15 @@ if [ ! -e "$HOME/.vim/autoload/plug.vim" ]; then
     # 如果安装失败的话，可能就需要修改plug.vim
     # find ~ -name 'plug.vim' | xargs perl -pi -e 's|https://git::@github.com/%s.git|git@github.com:%s.git|g'
     mkdir -p $HOME/.vim/autoload
+    cp -rf $HOME/vim-plug/plug.vim $HOME/.vim/autoload/plug.vim
 fi
+
 cd $HOME/vim-light-workshop
-cp -rf vimrc $HOME/.vimrc
+cp -rf .vimrc $HOME/.vimrc
 cp -rf gvim/colors $HOME/.vim/colors
-cp -rf $HOME/vim-plug/plug.vim $HOME/.vim/autoload/plug.vim
 
 #### zsh安装
-if ! [ -x "$(command -v zsh)" ]; then
+if [ ! -x "$(command -v zsh)" ]; then
     echo 'zsh is not installed.' >&2
     echo 'installing zsh now.' >&2
     sudo apt install zsh
