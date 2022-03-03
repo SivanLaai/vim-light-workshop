@@ -31,35 +31,62 @@ set -g default-terminal "screen-256color"
 eof
 
 
-#### 编译python3.8.8
 #Ubuntu
+#### python安装
+echo "1 - Normal Enviroment for using lightly, 2 - Science Environment for Reasearch"
+echo "Please Choose your Environment:"
+read envChoose
+pythonpath = ""
+if (( $envChoose == 2)); then
+    #### 2科学环境安装Anaconda3 python
+    echo "choose Science Environment for Reasearch"
+    anaconda3_file=$(ls Anaconda3*.sh)
+    if [ ! -n "$anaconda3_file" ]; then
+        echo "Downloading Anaconda3 Install Package."
+        wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+    fi
 
-if [ ! -e "Python-3.8.8.tar.xz" ]; then
-    echo "Downloading Python Install Package."
-»···sudo apt-get install build-essential
-    sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev libbz2-dev liblzma-dev
-    wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tar.xz
-fi
+    if [ ! -d "/usr/local/anaconda3/" ]; then
+        echo "installing anaconda3."
+        anaconda3_shell=$(ls Anaconda3*.sh)
+        ./anaconda3_shell
+        echo '. ~/anaconda3/etc/profile.d/conda.sh'>>~/.bash_profile
+        ~/anaconda3/bin/conda create -n myenv python=3.8
+        echo 'source ~/anaconda3/bin/activate myenv'>>~/.bash_profile
+        source ~/anaconda3/bin/activate myenv
+    fi
+    pythonpath="/usr/local/anaconda3/envs/myenv"
+else
+    #### 1编译python3.8.12
+    echo "choose Normal Enviroment for using lightly"
+    if [ ! -e "Python-3.8.12.tar.xz" ]; then
+        echo "Downloading Python Install Package."
+    »···sudo apt-get install build-essential
+        sudo apt install -y zlib1g zlib1g-dev libffi-dev openssl libssl-dev libbz2-dev liblzma-dev libsqlite3-dev
+        wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tar.xz
+    fi
 
-if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; then
-    echo "compiling and installing Python."
-    tar -xvf Python-3.8.8.tar.xz
-    cd Python-3.8.8
-    ./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
-    sudo make altinstall -j8
-    # add bin path
-    echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
-    echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
-    cd ~
-    echo '/usr/local/python3.8/lib'>>python.conf
-    sudo mv python.conf /etc/ld.so.conf.d/python.conf
-    sudo ldconfig
-    sudo rm -rf Python-3.8.8
-    /usr/local/python3.8/bin/python3.8 -m pip install --user --upgrade pip
-    /usr/local/python3.8/bin/python3.8 -m pip install virtualenv
-    cd ~
-    /usr/local/python3.8/bin/python3.8 -m virtualenv venv
-    echo 'source ~/venv/bin/activate'>>~/.bash_profile
+    if [ ! -e "/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu" ]; then
+        echo "compiling and installing Python."
+        tar -xvf Python-3.8.12.tar.xz
+        cd Python-3.8.12
+        ./configure --enable-shared --enable-optimizations --prefix=/usr/local/python3.8
+        sudo make altinstall -j8
+        # add bin path
+        #echo 'export PATH=/usr/local/python3.8/bin:$PATH'>>~/.bash_profile
+        #echo 'export PYTHONHOME=/usr/local/python3.8'>>~/.bash_profile
+        cd ~
+        echo '/usr/local/python3.8/lib'>>python.conf
+        sudo mv python.conf /etc/ld.so.conf.d/python.conf
+        sudo ldconfig
+        sudo rm -rf Python-3.8.12
+        /usr/local/python3.8/bin/python3.8 -m pip install --user --upgrade pip
+        /usr/local/python3.8/bin/python3.8 -m pip install virtualenv
+        cd ~
+        /usr/local/python3.8/bin/python3.8 -m virtualenv venv
+        echo 'source ~/venv/bin/activate'>>~/.bash_profile
+    fi
+    pythonpath="/usr/local/python3.8"
 fi
 
 cd ~
@@ -85,14 +112,14 @@ if [ ! -n "$output" ]; then
     libxt-dev lua5.1 liblua5.1-dev libperl-dev
     export LD_FLAGS="-rdynamic"
     #./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
-    ./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-command=/usr/local/python3.8/bin/python3.8 \
-    --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge \
+    ./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-command=$pythonpath/bin/python3.8 \
+    --with-python3-config-dir=$pythonpath/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge \
     --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
     make
     sudo make install
     cd ~
 else
-    echo "vim 8.2 has been installed successfully."
+    echo "vim has been installed successfully."
 fi
 
 # 编译nodejs,插件coc需要nodejs的功能
