@@ -130,10 +130,12 @@ if [ ! -e "node-v14.17.1-linux-x64.tar.xz" ]; then
     wget https://nodejs.org/dist/v14.17.1/node-v14.17.1-linux-x64.tar.xz
 fi
 
-if [ ! -e "/usr/local/nodejs/bin/node" ]; then
+if [ ! -e "/usr/local/bin/node" ]; then
     tar -xf node-v14.17.1-linux-x64.tar.xz
     echo "installing nodejs"
-    sudo mv node-v14.17.1-linux-x64 /usr/local/nodejs
+    sudo mv -rf node-v14.17.1-linux-x64/bin/* /usr/local/bin
+    sudo mv -rf node-v14.17.1-linux-x64/share/* /usr/local/share
+    sudo mv -rf node-v14.17.1-linux-x64/lib/* /usr/local/lib
 fi
 
 #添加nodejs环境变量
@@ -142,14 +144,6 @@ if [ ! -e "$HOME/.bash_profile" ]; then
     touch $HOME/.bash_profile
 fi
 
-output=$(cat ~/.bash_profile | grep "config nodejs env path")
-if [ ! -n "$output" ]
-then
-    echo '#config nodejs env path'>>~/.bash_profile
-    echo 'VERSION=v14.17.1'>>~/.bash_profile
-    echo 'DISTRO=linux-x64'>>~/.bash_profile
-    echo 'export PATH=/usr/local/nodejs/bin:$PATH'>>~/.bash_profile
-fi
 
 #安装ctags，主要用来索引
 #安装依赖
