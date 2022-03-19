@@ -10,9 +10,9 @@ set backup
 set swapfile
 set undofile
 " 生成中间文件，保存到其它目录不污染本目录
-set undodir=~$HOME/vimfiles/undodir
-set directory^=$HOME/vimfiles/swapdir
-set backupdir^=$HOME/vimfiles/backdir
+set undodir=~$HOME/.cache/undodir
+set directory^=$HOME/.cache/swapdir
+set backupdir^=$HOME/.cache/backdir
 " 使回格键（backspace）正常处理indent, eol, start等
 set backspace=2
 " 允许backspace和光标键跨越行边界
@@ -72,16 +72,16 @@ inoremap "" ""<Left>
 inoremap “” “”<Left>
 inoremap '' ''<Left>
 inoremap ’’ ’’<Left>
-" leader ??
+" leader 键
 let g:mapleader=","
-" ????ģʽ??ʹ?? leader+w ???ٱ????ļ?
+" 编辑模式 leader+w 保存当前文件
 imap ,w <esc>:w<CR>
-" ʹ?? jj ???ٻص? normal ģʽ
+" 使用 jj 进入 normal 模式
 imap jj <Esc>l
 inoremap <C-l> <C-o>A
-" ʹ?? leader+e ?????˳������?(???ǲ????ر? buffer)
+" 正常模式下 leader+e 退出当前buffer
 noremap <leader>e :q<cr>
-" ʹ?? leader+b ???ٹرյ?ǰ buffer
+" leader+b 切换 buffer
 noremap <leader>b :bd<cr>
 noremap <silent><tab>m :tabnew<cr>
 noremap <silent><tab>e :tabclose<cr>
@@ -118,22 +118,22 @@ noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
 " remove space on the rear
 autocmd BufWritePre * :%s/\s\+$//e
 " replace tab with 4 spaces
-autocmd BufWritePre * :%retab
+" autocmd BufWritePre * :%retab
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
-"when nerdtree is the last window, then close the vim.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-            \ quit | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+""when nerdtree is the last window, then close the vim.
+"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+"            \ quit | endif
 " Start NERDTree when Vim starts with a directory argument
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+"    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "when creating a new tab, copy a mirror of nerdtree.
-let g:nerdfocus = 1
+let g:nerdfocus = 0
 
 function FocusNerdTree()
     if g:nerdfocus == 0
@@ -247,7 +247,7 @@ map <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
 call plug#begin('~/.vim/plugged')
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': '::CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
 Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
