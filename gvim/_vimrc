@@ -36,7 +36,6 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set softtabstop=4
 set wrap
 set linebreak
 set wrapmargin=2
@@ -72,16 +71,16 @@ inoremap "" ""<Left>
 inoremap “” “”<Left>
 inoremap '' ''<Left>
 inoremap ’’ ’’<Left>
-" leader ??
+" leader 键
 let g:mapleader=","
-" ????ģʽ??ʹ?? leader+w ???ٱ????ļ?
+" 编辑模式 leader+w 保存当前文件
 imap ,w <esc>:w<CR>
-" ʹ?? jj ???ٻص? normal ģʽ
+" 使用 jj 进入 normal 模式
 imap jj <Esc>l
 inoremap <C-l> <C-o>A
-" ʹ?? leader+e ?????˳������?(???ǲ????ر? buffer)
+" 正常模式下 leader+e 退出当前buffer
 noremap <leader>e :q<cr>
-" ʹ?? leader+b ???ٹرյ?ǰ buffer
+" leader+b 切换 buffer
 noremap <leader>b :bd<cr>
 noremap <silent><tab>m :tabnew<cr>
 noremap <silent><tab>e :tabclose<cr>
@@ -118,7 +117,7 @@ noremap <Leader>nc :set nopaste<CR>:set mouse+=a<CR>:set nu<CR>:wq<CR>:tabp<CR>
 " remove space on the rear
 autocmd BufWritePre * :%s/\s\+$//e
 " replace tab with 4 spaces
-autocmd BufWritePre * :%retab
+"autocmd BufWritePre * :%retab
 
 "nerdtree
 "start nerdtree. If a file is specified, move the cursor to its window.
@@ -356,45 +355,3 @@ Plug 'pechorin/any-jump.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'prettier/vim-prettier'
 call plug#end()
-
-
-" Use the internal diff if available.
-" Otherwise use the special 'diffexpr' for Windows.
-if &diffopt !~# 'internal'
-  set diffexpr=MyDiff()
-endif
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg1 = substitute(arg1, '!', '\!', 'g')
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg2 = substitute(arg2, '!', '\!', 'g')
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let arg3 = substitute(arg3, '!', '\!', 'g')
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  let cmd = substitute(cmd, '!', '\!', 'g')
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
-if executable("vimtweak.dll")
-autocmd guienter * call libcallnr("vimtweak","SetAlpha",120)
-endif
