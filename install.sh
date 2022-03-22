@@ -205,6 +205,9 @@ if [ ! -e "$HOME/.vim/autoload/plug.vim" ]; then
     cp -rf $HOME/vim-plug/plug.vim $HOME/.vim/autoload/plug.vim
 fi
 
+mkdir -p $HOME/.cache/vimfiles/undodir
+mkdir -p $HOME/.cache/vimfiles/swapdir
+mkdir -p $HOME/.cache/vimfiles/backdir
 cd $HOME/vim-light-workshop
 cp -rf .vimrc $HOME/.vimrc
 cp -rf gvim/colors $HOME/.vim/colors
