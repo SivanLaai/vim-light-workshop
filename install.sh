@@ -133,9 +133,9 @@ fi
 if [ ! -e "/usr/local/bin/node" ]; then
     tar -xf node-v14.17.1-linux-x64.tar.xz
     echo "installing nodejs"
-    sudo mv -rf node-v14.17.1-linux-x64/bin/* /usr/local/bin
-    sudo mv -rf node-v14.17.1-linux-x64/share/* /usr/local/share
-    sudo mv -rf node-v14.17.1-linux-x64/lib/* /usr/local/lib
+    sudo cp -rf node-v14.17.1-linux-x64/bin/* /usr/local/bin
+    sudo cp -rf node-v14.17.1-linux-x64/share/* /usr/local/share
+    sudo cp -rf node-v14.17.1-linux-x64/lib/* /usr/local/lib
 fi
 
 #添加nodejs环境变量
