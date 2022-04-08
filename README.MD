@@ -67,6 +67,8 @@ cd vimrc
 - Neovim
 [下载python编译版本gvim](https://github.com/neovim/neovim/releases)
 
+配置路径```D:\Program Files\Neovim\bin```为系统环境变量
+
 #### 2.安装对应版本的Python
 - GVim查看对应版本的Python
 [查看相关版本的python下载安装：](https://github.com/vim/vim-win32-installer/releases/latest)
