@@ -85,42 +85,67 @@ else
         cd ~
         /usr/local/python3.8/bin/python3.8 -m virtualenv venv
         echo 'source ~/venv/bin/activate'>>~/.bash_profile
+        source ~/venv/bin/activate venv
     fi
     pythonpath="/usr/local/python3.8"
 fi
 
-cd ~
-#### 编译vim 支持Python和clipboard
 
-if [ ! -d "$HOME/vim" ]; then
-    echo "Downloading Python Install Package."
+echo "1 - Vim, 2 - Neovim"
+echo "Please Choose your Vim version:"
+read vimChoose
+if (( $vimChoose == 1)); then
+    echo "install Vim..."
     cd ~
-    git clone https://github.com/vim/vim
-fi
+    #### 编译vim 支持Python和clipboard
+
+    if [ ! -d "$HOME/vim" ]; then
+        echo "Downloading Python Install Package."
+        cd ~
+        git clone https://github.com/vim/vim
+    fi
 
 
-cd ~
-output=$(vim --version | grep "SivanLaai")
-if [ ! -n "$output" ]; then
-    cd ~/vim
-    git pull && git fetch
+    cd ~
+    output=$(vim --version | grep "SivanLaai")
+    if [ ! -n "$output" ]; then
+        cd ~/vim
+        git pull && git fetch
 
-    # 卸载旧版本vim
-    sudo apt-get remove --purge vim-tiny vim vim-runtime vim-common vim-gui-common vim-nox
-    # 安装依赖包
-    sudo apt install ncurses-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev
-    libxt-dev lua5.1 liblua5.1-dev libperl-dev
-    export LD_FLAGS="-rdynamic"
-    #./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
-    ./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-command=$pythonpath/bin/python3.8 \
-    --with-python3-config-dir=$pythonpath/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge \
-    --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
-    make
-    sudo make install
+        # 卸载旧版本vim
+        sudo apt-get remove --purge vim-tiny vim vim-runtime vim-common vim-gui-common vim-nox
+        # 安装依赖包
+        sudo apt install ncurses-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev
+        libxt-dev lua5.1 liblua5.1-dev libperl-dev
+        export LD_FLAGS="-rdynamic"
+        #./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-config-dir=/usr/local/python3.8/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge --with-x --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
+        ./configure --enable-multibyte --enable-python3interp=dynamic --with-python3-command=$pythonpath/bin/python3.8 \
+        --with-python3-config-dir=$pythonpath/lib/python3.8/config-3.8-x86_64-linux-gnu --enable-cscopei --enable-gui=auto --with-features=huge \
+        --enable-fontset --enable-largefile --disable-netbeans --with-compiledby=SivanLaai --enable-fail-if-missing
+        make
+        sudo make install
+        cd ~
+    else
+        echo "vim has been installed successfully."
+    fi
+    # 安装vim配置文件
+    cd $HOME/vim-light-workshop
+    cp -rf vim/.vimrc $HOME/.vimrc
+    cp -rf gvim/colors $HOME/.vim/colors
     cd ~
 else
-    echo "vim has been installed successfully."
+    echo "install Neovim..."
+    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+    git clone https://github.com/neovim/neovim
+    cd neovim
+    make
+    sudo make install
+    pip install neovim
+    cd $HOME/vim-light-workshop
+    cp -rf neovim/init.vim $HOME/.config/nvim
+    cd ~
 fi
+
 
 # 编译nodejs,插件coc需要nodejs的功能
 # 安装nodejs, 插件coc.vim会用到这个软件
@@ -209,8 +234,6 @@ mkdir -p $HOME/.cache/vimfiles/undodir
 mkdir -p $HOME/.cache/vimfiles/swapdir
 mkdir -p $HOME/.cache/vimfiles/backdir
 cd $HOME/vim-light-workshop
-cp -rf .vimrc $HOME/.vimrc
-cp -rf gvim/colors $HOME/.vim/colors
 
 #### zsh安装
 if [ ! -x "$(command -v zsh)" ]; then
@@ -263,6 +286,6 @@ git config --global core.quotepath false
 cat<<"eof"
 Final Step:
 ## 打开vim
-vim
+vim or nvim
 :PlugInstall #等待插件安装完成
 eof
