@@ -61,11 +61,15 @@ cd vimrc
 
 # vim-gui
 ## windows
-#### 1.安装支持Python的GVim
-- [下载python编译版本gvim](https://github.com/vim/vim-win32-installer/releases/latest)
+#### 1.下载安装vim-gui
+- gVim
+[下载python编译版本gvim](https://github.com/vim/vim-win32-installer/releases/latest)
+- Neovim
+[下载python编译版本gvim](https://github.com/neovim/neovim/releases)
 
 #### 2.安装对应版本的Python
-- [查看相关版本的pyhon下载安装：](https://github.com/vim/vim-win32-installer/releases/latest)
+- GVim查看对应版本的Python
+[查看相关版本的python下载安装：](https://github.com/vim/vim-win32-installer/releases/latest)
  ![python](https://cdn.jsdelivr.net/gh/SivanLaai/image-store-rep@master/vim/python.2aejfb0v8g7w.png)
 - [下载Python](https://www.python.org/downloads/)
 
