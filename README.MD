@@ -1,4 +1,4 @@
-# Vim-Tmux 一键安装轻量级工作站
+# Vim/Neovim-Tmux 一键安装轻量级工作站
 ## 添加功能：
 ### 1.文件管理：插件NerdTree
 - 打开文件管理：Crtl + N
@@ -49,16 +49,17 @@
 ## 效果预览
 ![Image text](img/preview.gif)
 
-# Vim
+# Vim or Neovim
 ## Ubuntu安装方式
 ```bash
+# 可在内部选择对应的版本
 git clone https://github.com/SivanLaai/vimrc.git
 cd vimrc
 ./install.sh
 #TODO: 安装完成记得进入vim更新插件
 ```
 
-# gvim
+# vim-gui
 ## windows
 #### 1.安装支持Python的GVim
 - [下载python编译版本gvim](https://github.com/vim/vim-win32-installer/releases/latest)
@@ -130,13 +131,16 @@ pip install --upgrade autopep8
 npm install -g js-beautify
 ```
 #### 10.复制配置文件
+- gVim
 ```zsh
 cp -rf gvim/_vimrc $vim/_vimrc
 cp -rf gvim/autoload vimfile
+- NeoVim-qt
+cp -rf neovim-qt/* ~/AppData/Local/nvim
 # Solarized Dark 主题复制
 cp -rf gvim/colors vimfile
 ```
-#### 11.配置gvim
+#### 11.配置vim-gui
 ```zsh
 :PlugInstall #待安装完成
 ```
