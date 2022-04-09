@@ -10,7 +10,7 @@ set backup
 set swapfile
 set undofile
 " 生成中间文件，保存到其它目录不污染本目录
-set undodir=~$HOME/.cache/vimfiles/undodir
+set undodir=$HOME/.cache/vimfiles/undodir
 set directory^=$HOME/.cache/vimfiles/swapdir
 set backupdir^=$HOME/.cache/vimfiles/backdir
 " 使回格键（backspace）正常处理indent, eol, start等
