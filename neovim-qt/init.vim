@@ -338,6 +338,14 @@ endfunction
 
 nmap <Leader>lr :call ClearLatexCaches()<CR>
 
+" QuickPreview
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
 "vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -351,7 +359,8 @@ Plug 'overcache/NeoSolarized', {'do': 'cp -rf ~/.config/nvim/plugged/overcache/N
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'joereynolds/gtags-scope'
+Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'Chiel92/vim-autoformat'
