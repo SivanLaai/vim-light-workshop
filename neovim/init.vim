@@ -3,7 +3,6 @@ set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
 if has("gui_running")
     set guifont=agave\ NF:h12
 endif
-syntax enable
 set background=dark
 colorscheme solarized
 "生成中间文件
