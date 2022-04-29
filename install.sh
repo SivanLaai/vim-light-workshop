@@ -256,11 +256,28 @@ else
 fi
 
 cd ~
+# zsh-zutoggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# autojump
+git clone https://github.com/wting/autojump.git
+cd autojump
+./install.py
+#添加autojump到zsh
+output=$(cat ~/.zshrc | grep "autojump.sh")
+if [ ! -n "$output" ]; then
+    echo '[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh'>>~/.zshrc
+    echo 'autoload -U compinit && compinit -u'>>~/.zshrc
+fi
+
+cd ~
 cd $HOME/ohmyzsh/tools
 #install theme
 ./install.sh
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 sed -i 's#"robbyrussell"#"powerlevel10k/powerlevel10k"#g' ~/.zshrc
+sed -i 's#"plugins=(git)"#"plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)"#g' ~/.zshrc
 #激活环境bash变量
 output=$(cat ~/.zshrc | grep "bash_profile")
 if [ ! -n "$output" ]; then
