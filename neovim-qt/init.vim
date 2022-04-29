@@ -355,7 +355,7 @@ Plug 'skywind3000/vim-terminal-help'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
-Plug 'overcache/NeoSolarized', {'do': 'cp -rf ~/.config/nvim/plugged/overcache/NeoSolarized/colors ~/.config/nvim'}
+Plug 'overcache/NeoSolarized', {'do': 'XCOPY %USERPROFILE%\.vim\plugged\NeoSolarized\colors\* %USERPROFILE%\AppData\Local\nvim\colors'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'

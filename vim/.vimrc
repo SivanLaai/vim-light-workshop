@@ -1,10 +1,9 @@
 " Vim with all enhancements
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-set guifont=agave\ NF:h12
-source $VIMRUNTIME/vimrc_example.vim
-syntax enable
+set guifont=agave\ NF:h13
+colorscheme NeoSolarized
 set background=dark
-colorscheme solarized
+set termguicolors
 "生成中间文件
 set backup
 set swapfile
@@ -249,10 +248,12 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': '::CocInstall coc-json coc-tsserver coc-pyright coc-clangd coc-snippets coc-vetur'}
 Plug 'altercation/vim-colors-solarized', {'do': 'cp -rf ~/.vim/plugged/vim-colors-solarized/colors ~/.vim'}
+Plug 'overcache/NeoSolarized', {'do': 'cp -rf ~/.vim/plugged/NeoSolarized/colors ~/.vim'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'joereynolds/gtags-scope'
+Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
 Plug 'preservim/vimux'
