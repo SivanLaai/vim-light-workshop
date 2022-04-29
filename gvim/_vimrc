@@ -1,10 +1,12 @@
 " Vim with all enhancements
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-set guifont=agave\ NF:h12
-source $VIMRUNTIME/vimrc_example.vim
-syntax enable
-set background=dark
-colorscheme solarized
+if has("gui_running")
+    set guifont=agave\ NF:h12
+    colorscheme NeoSolarized
+    set background=dark
+    "colorscheme solarized
+endif
+set termguicolors
 "生成中间文件
 set backup
 set swapfile
